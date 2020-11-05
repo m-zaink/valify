@@ -30,7 +30,7 @@ class MaximumLengthLimitingConstraint implements InputConstraint {
   })  : assert(maxLength != null),
         assert(violationMessage != null);
 
-  /// If [input.length] > maxLength, returns [true].
+  /// If [input.length] > [maxLength], returns [true].
   /// Otherwise returns [false].
   @override
   bool isViolatedOn(String input) {
@@ -168,7 +168,7 @@ class AvoidLowerCaseCharactersConstraint implements InputConstraint {
   AvoidLowerCaseCharactersConstraint({this.violationMessage = ''})
       : assert(violationMessage != null);
 
-  /// If input contains even one lowerd case character, then returns [true].
+  /// If input contains even one lower case character, then returns [true].
   /// Otherwise returns [false].
   @override
   bool isViolatedOn(String input) {
@@ -224,7 +224,7 @@ class AvoidDigitsConstraint implements InputConstraint {
   AvoidDigitsConstraint({this.violationMessage = ''})
       : assert(violationMessage != null);
 
-  /// If input contains even one lowerd case character, then returns [true].
+  /// If input contains even one digit, then returns [true].
   /// Otherwise returns [false].
   @override
   bool isViolatedOn(String input) {
