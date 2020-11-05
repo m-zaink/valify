@@ -7,9 +7,13 @@
 </div>
 
 🔥 Validate your user inputs like never before with highly intuitive constraint pipeline.
+
 ✨ Easy to use pre-defined constraints covering most of your everyday validation needs.
+
 🖍 Better still, you can create your own constraints on the go.
+
 🏎 Set your own order in which constraints are evaluated.
+
 🚜 Receicve a list of constraints that got violated or receive the first one that was violated in the pipeline.
 
 ---
