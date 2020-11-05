@@ -103,7 +103,7 @@ class UpperCaseCharactersRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint to disallow any upper case characters in the input.
+/// Constraint to disallowing any upper case characters in the input.
 class AvoidUpperCaseCharactersConstraint implements InputConstraint {
   @override
   final String violationMessage;
@@ -160,7 +160,7 @@ class LowerCaseCharactersRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint to disallow any lower case characters in the input.
+/// Constraint to disallowing any lower case characters in the input.
 class AvoidLowerCaseCharactersConstraint implements InputConstraint {
   @override
   final String violationMessage;
@@ -216,7 +216,7 @@ class DigitsRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint to disallow any lower case characters in the input.
+/// Constraint to disallowing any digits in the input.
 class AvoidDigitsConstraint implements InputConstraint {
   @override
   final String violationMessage;
@@ -255,8 +255,7 @@ class SpecialCharactersRequiredConstraint implements InputConstraint {
   @override
   bool isViolatedOn(String input) {
     for (var specialCharacter in specialCharacters) {
-      final regExForSpecialCharacter = RegExp(specialCharacter);
-      if (!regExForSpecialCharacter.hasMatch(input)) {
+      if (!input.contains(specialCharacter)) {
         return true;
       }
     }
@@ -284,8 +283,7 @@ class SpecialWordsRequiredConstraint implements InputConstraint {
   @override
   bool isViolatedOn(String input) {
     for (var specialWord in specialWords) {
-      final regExForSpecialCharacter = RegExp(specialWord);
-      if (!regExForSpecialCharacter.hasMatch(input)) {
+      if (!input.contains(specialWord)) {
         return false;
       }
     }
@@ -313,8 +311,7 @@ class BlackListedCharactersConstraint implements InputConstraint {
   @override
   bool isViolatedOn(String input) {
     for (var blackListedCharacter in blackListedCharacters) {
-      final regExForSpecialCharacter = RegExp(blackListedCharacter);
-      if (regExForSpecialCharacter.hasMatch(input)) {
+      if (input.contains(blackListedCharacter)) {
         return true;
       }
     }
@@ -341,17 +338,13 @@ class BlackListedWordsConstraint implements InputConstraint {
   /// Otherwise returns [false].
   @override
   bool isViolatedOn(String input) {
-    var isViolated = false;
-
     for (var blackListedWord in blackListedWords) {
-      final regExForSpecialCharacter = RegExp(blackListedWord);
-      if (regExForSpecialCharacter.hasMatch(input)) {
-        isViolated = true;
-        break;
+      if (input.contains(blackListedWord)) {
+        return true;
       }
     }
 
-    return isViolated;
+    return false;
   }
 }
 
