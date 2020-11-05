@@ -6,7 +6,7 @@
 </center>
 </div>
 
-🔥 Validate your user inputs like never before with highly intuitive constraint pipeline.
+🔥 Validate your user inputs like never before with highly intuitive constraints pipeline.
 
 ✨ Easy to use pre-defined constraints covering most of your everyday validation needs.
 
