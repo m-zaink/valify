@@ -1,4 +1,4 @@
 # valify
 
-Validating your inputs like never before with highly intuitive constraint classes
+Validate your inputs like never before with highly intuitive constraint classes
 
