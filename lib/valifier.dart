@@ -1,11 +1,11 @@
 import 'package:meta/meta.dart';
 import 'package:valify/constraints/input_constraint.dart';
 
-abstract class InputValidator {
-  factory InputValidator({@required List<InputConstraint> constraints}) {
+abstract class Valifier {
+  factory Valifier({@required List<InputConstraint> constraints}) {
     assert(constraints != null);
 
-    return _InputValidatorImpl(
+    return _ValifierImpl(
       constraints: constraints,
     );
   }
@@ -17,10 +17,10 @@ abstract class InputValidator {
   InputConstraint firstConstraintViolatedOn({@required String input});
 }
 
-class _InputValidatorImpl implements InputValidator {
+class _ValifierImpl implements Valifier {
   final List<InputConstraint> constraints;
 
-  _InputValidatorImpl({
+  _ValifierImpl({
     @required this.constraints,
   }) : assert(constraints != null);
 
