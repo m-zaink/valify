@@ -14,7 +14,7 @@
 
 🏎 Set your own order in which constraints are evaluated.
 
-🚜 Receicve a list of constraints that got violated or receive the first one that was violated in the pipeline.
+🚜 Receive a list of constraints that got violated or receive the first one that was violated in the pipeline.
 
 ---
 
