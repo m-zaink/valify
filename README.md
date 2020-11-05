@@ -88,7 +88,7 @@ if (violatedConstraints.isEmpty) {
 }
 ```
 * You may also just fetch the first violation that occurred on the given input by using `firstConstraintViolatedOn(input:)` method of the `Valifier`.
-* Or you may even not go that far by just gettting to know if any constraints were violated at all by using `areAllConstraintsSatisfiedOn(input:)` method of the `Valifier`.
+* Or you may even not go that far as you can easily toget to know if any constraints were violated at all by using `areAllConstraintsSatisfiedOn(input:)` method of the `Valifier`.
 
 > ___ NOTE ___
 > You can optionally pass-in a `violationMessage` parameter to any of your constraints. 
