@@ -26,7 +26,7 @@ class MaximumLengthLimitingConstraint implements InputConstraint {
 
   MaximumLengthLimitingConstraint({
     this.maxLength = MaximumLengthLimitingConstraint.defaultMaxLength,
-    this.violationMessage = '',
+    this.violationMessage = 'MaximumLengthLimiting constraint violated',
   })  : assert(maxLength != null),
         assert(violationMessage != null);
 
@@ -52,7 +52,7 @@ class MinimumLengthRequiredConstraint implements InputConstraint {
 
   MinimumLengthRequiredConstraint({
     this.minLength = MinimumLengthRequiredConstraint.defaultMinLength,
-    this.violationMessage = '',
+    this.violationMessage = 'MinimumLengthRequired constraint violated',
   })  : assert(minLength != null),
         assert(violationMessage != null);
 
@@ -83,7 +83,7 @@ class UpperCaseCharactersRequiredConstraint implements InputConstraint {
     this.minCharactersRequired =
         UpperCaseCharactersRequiredConstraint.defaultMinCharactersRequired,
     this.maxCharactersAllowed,
-    this.violationMessage = '',
+    this.violationMessage = 'UpperCaseCharactersRequired constraint violated',
   })  : assert(minCharactersRequired != null),
         assert(maxCharactersAllowed == null ||
             maxCharactersAllowed >= minCharactersRequired),
@@ -108,8 +108,9 @@ class AvoidUpperCaseCharactersConstraint implements InputConstraint {
   @override
   final String violationMessage;
 
-  AvoidUpperCaseCharactersConstraint({this.violationMessage = ''})
-      : assert(violationMessage != null);
+  AvoidUpperCaseCharactersConstraint({
+    this.violationMessage = 'AvoidUpperCaseCharacters constraint violated',
+  }) : assert(violationMessage != null);
 
   /// If input contains even one upper case character, then returns [true].
   /// Otherwise returns [false].
@@ -140,7 +141,7 @@ class LowerCaseCharactersRequiredConstraint implements InputConstraint {
     this.minCharactersRequired =
         LowerCaseCharactersRequiredConstraint.defaultMinCharactersRequired,
     this.maxCharactersAllowed,
-    this.violationMessage = '',
+    this.violationMessage = 'LowerCaseCharactersRequired constraint violated',
   })  : assert(minCharactersRequired != null),
         assert(maxCharactersAllowed == null ||
             maxCharactersAllowed >= minCharactersRequired),
@@ -165,8 +166,9 @@ class AvoidLowerCaseCharactersConstraint implements InputConstraint {
   @override
   final String violationMessage;
 
-  AvoidLowerCaseCharactersConstraint({this.violationMessage = ''})
-      : assert(violationMessage != null);
+  AvoidLowerCaseCharactersConstraint({
+    this.violationMessage = 'AvoidLowerCaseCharacters constraint violated',
+  }) : assert(violationMessage != null);
 
   /// If input contains even one lower case character, then returns [true].
   /// Otherwise returns [false].
@@ -196,7 +198,7 @@ class DigitsRequiredConstraint implements InputConstraint {
   DigitsRequiredConstraint({
     this.minDigitsRequired = DigitsRequiredConstraint.defaultMinDigitsRequired,
     this.maxDigitsAllowed,
-    this.violationMessage = '',
+    this.violationMessage = 'DigitsRequired constraint violated',
   })  : assert(minDigitsRequired != null),
         assert(
             maxDigitsAllowed != null || maxDigitsAllowed >= minDigitsRequired),
@@ -221,8 +223,9 @@ class AvoidDigitsConstraint implements InputConstraint {
   @override
   final String violationMessage;
 
-  AvoidDigitsConstraint({this.violationMessage = ''})
-      : assert(violationMessage != null);
+  AvoidDigitsConstraint({
+    this.violationMessage = 'AvoidDigits constraint violated',
+  }) : assert(violationMessage != null);
 
   /// If input contains even one digit, then returns [true].
   /// Otherwise returns [false].
@@ -246,7 +249,7 @@ class SpecialCharactersRequiredConstraint implements InputConstraint {
 
   SpecialCharactersRequiredConstraint({
     @required this.specialCharacters,
-    this.violationMessage = '',
+    this.violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
         assert(violationMessage != null);
 
@@ -274,7 +277,7 @@ class SpecialWordsRequiredConstraint implements InputConstraint {
 
   SpecialWordsRequiredConstraint({
     @required this.specialWords,
-    this.violationMessage = '',
+    this.violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
         assert(violationMessage != null);
 
@@ -302,7 +305,7 @@ class BlackListedCharactersConstraint implements InputConstraint {
 
   BlackListedCharactersConstraint({
     @required this.blackListedCharacters,
-    this.violationMessage = '',
+    this.violationMessage = 'BlackListedCharacters constraint violated',
   })  : assert(blackListedCharacters != null),
         assert(violationMessage != null);
 
@@ -330,7 +333,7 @@ class BlackListedWordsConstraint implements InputConstraint {
 
   BlackListedWordsConstraint({
     @required this.blackListedWords,
-    this.violationMessage = '',
+    this.violationMessage = 'BlackListedWords constraint violated',
   })  : assert(blackListedWords != null),
         assert(violationMessage != null);
 
@@ -361,7 +364,7 @@ class AvoidRepeatingCharactersConstraint implements InputConstraint {
   AvoidRepeatingCharactersConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingCharactersConstraint.defaultMaxNumberOfRepetitionsAllowed,
-    this.violationMessage = '',
+    this.violationMessage = 'AvoidRepeatingCharacters constraint violated',
   }) : assert(maxNumberOfRepetitionsAllowed != null);
 
   /// If any character is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
@@ -402,7 +405,7 @@ class AvoidRepeatingAlphabetsConstraint implements InputConstraint {
   AvoidRepeatingAlphabetsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingAlphabetsConstraint.defaultMaxNumberOfRepetitionsAllowed,
-    this.violationMessage = '',
+    this.violationMessage = 'AvoidRepeatingAlphabets constraint violated',
   }) : assert(maxNumberOfRepetitionsAllowed != null);
 
   /// If any alphabet is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
@@ -445,7 +448,7 @@ class AvoidRepeatingDigitsConstraint implements InputConstraint {
   AvoidRepeatingDigitsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingDigitsConstraint.defaultmaxNumberOfRepetitionsAllowed,
-    this.violationMessage = '',
+    this.violationMessage = 'AvoidRepeatingDigits constraint violated',
   }) : assert(maxNumberOfRepetitionsAllowed != null);
 
   @override
@@ -485,7 +488,8 @@ class AvoidConsecutivelyRepeatingCharactersConstraint
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingCharactersConstraint
             .defaultMaxNumberOfRepetitionsAllowed,
-    this.violationMessage = '',
+    this.violationMessage =
+        'AvoidConsecutivelyRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(violationMessage != null);
 
@@ -527,7 +531,8 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingDigitsConstraint
             .defaultmaxNumberOfRepetitionsAllowed,
-    this.violationMessage = '',
+    this.violationMessage =
+        'AvoidConsecutivelyRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(violationMessage != null);
 
@@ -565,7 +570,8 @@ class AvoidConsecutivelyRepeatingDigitsConstraint implements InputConstraint {
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingDigitsConstraint
             .defaultmaxNumberOfRepetitionsAllowed,
-    this.violationMessage = '',
+    this.violationMessage =
+        'AvoidConsecutivelyRepeatingDigits constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(violationMessage != null);
 
@@ -602,7 +608,7 @@ class AvoidSequentialCharactersConstraint implements InputConstraint {
   AvoidSequentialCharactersConstraint({
     this.maxSequenceLength =
         AvoidSequentialCharactersConstraint.defaultMaxSequenceLength,
-    this.violationMessage = '',
+    this.violationMessage = 'AvoidSequentialCharacters constraint violated',
   })  : assert(maxSequenceLength != null),
         assert(maxSequenceLength > 1);
 
@@ -639,7 +645,7 @@ class AvoidSequentialAlphabetsConstraint implements InputConstraint {
   AvoidSequentialAlphabetsConstraint({
     this.maxSequenceLength =
         AvoidSequentialAlphabetsConstraint.defaultMaxSequenceLength,
-    this.violationMessage = '',
+    this.violationMessage = 'AvoidSequentialAlphabets constraint violated',
   })  : assert(maxSequenceLength != null),
         assert(maxSequenceLength > 1);
 
@@ -676,7 +682,7 @@ class AvoidSequentialDigitsConstraint implements InputConstraint {
   AvoidSequentialDigitsConstraint({
     this.maxSequenceLength =
         AvoidSequentialDigitsConstraint.defaultMaxSequenceLength,
-    this.violationMessage = '',
+    this.violationMessage = 'AvoidSequentialDigits constraint violated',
   })  : assert(maxSequenceLength != null),
         assert(maxSequenceLength > 1);
 
