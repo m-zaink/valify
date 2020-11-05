@@ -1,19 +1,15 @@
 name: valify
 description: Validating your inputs like never before with highly intuitive constraint classes
 version: 0.0.1
-author:
+author: m_zaink
 homepage:
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+  meta: ^1.2.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-flutter:
+  test: ^1.15.4
+  pedantic: ^1.9.0
