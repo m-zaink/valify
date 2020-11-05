@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 5/11/2020
 
-* TODO: Describe initial release.
+* Contains the basic set up along with a bunch of input constraints
+* TODO: Add documentation and complete set of test cases
