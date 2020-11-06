@@ -8,15 +8,15 @@ import 'package:valify/constraints/input_constraint.dart';
 abstract class Valifier {
   /// If any constraint from the constraint pipeline is violated on [input], then returns [true].
   /// Otherwise returns [false].
-  bool areAllConstraintsSatisfiedOn({@required String input});
+  bool areAllConstraintsSatisfiedOn(String input);
 
   /// Generates a list of all the constraints from the pipeline that were violated on [input].
   /// If no constraint was violated, an empty list is returned.
-  List<InputConstraint> allConstraintsViolatedOn({@required String input});
+  List<InputConstraint> allConstraintsViolatedOn(String input);
 
   /// Fetch the first constraint that was violated from the pipeline on [input].
   /// Returns [null] if no constraint was violated at all.
-  InputConstraint firstConstraintViolatedOn({@required String input});
+  InputConstraint firstConstraintViolatedOn(String input);
 
   factory Valifier({@required List<InputConstraint> constraints}) {
     assert(constraints != null);
@@ -35,7 +35,7 @@ class _ValifierImpl implements Valifier {
   }) : assert(constraints != null);
 
   @override
-  bool areAllConstraintsSatisfiedOn({@required String input}) {
+  bool areAllConstraintsSatisfiedOn(String input) {
     assert(input != null);
 
     for (var constraint in constraints) {
@@ -48,7 +48,7 @@ class _ValifierImpl implements Valifier {
   }
 
   @override
-  List<InputConstraint> allConstraintsViolatedOn({@required String input}) {
+  List<InputConstraint> allConstraintsViolatedOn(String input) {
     assert(input != null);
 
     final violatedConstraints = <InputConstraint>[];
@@ -63,7 +63,7 @@ class _ValifierImpl implements Valifier {
   }
 
   @override
-  InputConstraint firstConstraintViolatedOn({@required String input}) {
+  InputConstraint firstConstraintViolatedOn(String input) {
     assert(input != null);
 
     for (var constraint in constraints) {
