@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:valify/constraints/input_constraint.dart';
+import 'package:valify/src/constraints/input_constraint.dart';
 
 void testUpperCaseCharactersRequiredConstraint() {
   group(
@@ -11,7 +11,8 @@ void testUpperCaseCharactersRequiredConstraint() {
         () {
           // arrange
           final minNumberOfUpperCaseCharactersRequired =
-              UpperCaseCharactersRequiredConstraint.defaultMinCharactersRequired;
+              UpperCaseCharactersRequiredConstraint
+                  .defaultMinCharactersRequired;
           final inputWithMinNumberOfUpperCaseCharactersAtLeadingPositions =
               'A' * minNumberOfUpperCaseCharactersRequired + 'blah';
           final inputWithMinNumberOfUpperCaseCharactersAtTrailingPositions =
@@ -21,20 +22,25 @@ void testUpperCaseCharactersRequiredConstraint() {
           final inputWithMoreThanMinNumberOfUpperCaseCharacters =
               'blah' + 'AB' * minNumberOfUpperCaseCharactersRequired + 'blah';
 
-          final upperCaseCharactersRequiredConstraint = UpperCaseCharactersRequiredConstraint();
+          final upperCaseCharactersRequiredConstraint =
+              UpperCaseCharactersRequiredConstraint();
 
           // act
-          final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithMinNumberOfUpperCaseCharactersAtLeadingPositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMinNumberOfUpperCaseCharactersAtLeadingPositions);
 
-          final isViolatedAtMinNumberOfCharactersRequiredAtTrailingPositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithMinNumberOfUpperCaseCharactersAtTrailingPositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtTrailingPositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMinNumberOfUpperCaseCharactersAtTrailingPositions);
 
-          final isViolatedAtMinNumberOfCharactersRequiredAtMiddlePositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithMinNumberOfUpperCaseCharactersAtMiddlePositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtMiddlePositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMinNumberOfUpperCaseCharactersAtMiddlePositions);
 
           final isViolatedAtMoreThanMinNumberOfCharactersRequired =
-              upperCaseCharactersRequiredConstraint.isViolatedOn(inputWithMoreThanMinNumberOfUpperCaseCharacters);
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMoreThanMinNumberOfUpperCaseCharacters);
 
           // assert
           expect(
@@ -74,20 +80,25 @@ void testUpperCaseCharactersRequiredConstraint() {
           final inputWithMoreThanMinNumberOfUpperCaseCharacters =
               'blah' + 'AB' * minNumberOfUpperCaseCharactersRequired + 'blah';
 
-          final upperCaseCharactersRequiredConstraint = UpperCaseCharactersRequiredConstraint();
+          final upperCaseCharactersRequiredConstraint =
+              UpperCaseCharactersRequiredConstraint();
 
           // act
-          final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithMinNumberOfUpperCaseCharactersAtLeadingPositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMinNumberOfUpperCaseCharactersAtLeadingPositions);
 
-          final isViolatedAtMinNumberOfCharactersRequiredAtTrailingPositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithMinNumberOfUpperCaseCharactersAtTrailingPositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtTrailingPositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMinNumberOfUpperCaseCharactersAtTrailingPositions);
 
-          final isViolatedAtMinNumberOfCharactersRequiredAtMiddlePositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithMinNumberOfUpperCaseCharactersAtMiddlePositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtMiddlePositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMinNumberOfUpperCaseCharactersAtMiddlePositions);
 
           final isViolatedAtMoreThanMinNumberOfCharactersRequired =
-              upperCaseCharactersRequiredConstraint.isViolatedOn(inputWithMoreThanMinNumberOfUpperCaseCharacters);
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithMoreThanMinNumberOfUpperCaseCharacters);
 
           // assert
           expect(
@@ -118,27 +129,37 @@ void testUpperCaseCharactersRequiredConstraint() {
         () {
           // arrange
           final numberLessThanMinNumberOfUpperCaseCharactersRequired =
-              UpperCaseCharactersRequiredConstraint.defaultMinCharactersRequired;
+              UpperCaseCharactersRequiredConstraint
+                  .defaultMinCharactersRequired;
           final inputWithLessThanMinNumberOfUpperCaseCharactersAtLeadingPositions =
-              'A' * numberLessThanMinNumberOfUpperCaseCharactersRequired + 'blah';
+              'A' * numberLessThanMinNumberOfUpperCaseCharactersRequired +
+                  'blah';
           final inputWithLessMinNumberOfUpperCaseCharactersAtTrailingPositions =
-              'blah' + 'B' * numberLessThanMinNumberOfUpperCaseCharactersRequired;
+              'blah' +
+                  'B' * numberLessThanMinNumberOfUpperCaseCharactersRequired;
           final inputWithLesssMinNumberOfUpperCaseCharactersAtMiddlePositions =
-              'blah' + 'C' * numberLessThanMinNumberOfUpperCaseCharactersRequired + 'blah';
+              'blah' +
+                  'C' * numberLessThanMinNumberOfUpperCaseCharactersRequired +
+                  'blah';
 
-          final upperCaseCharactersRequiredConstraint = UpperCaseCharactersRequiredConstraint(
-            minCharactersRequired: numberLessThanMinNumberOfUpperCaseCharactersRequired,
+          final upperCaseCharactersRequiredConstraint =
+              UpperCaseCharactersRequiredConstraint(
+            minCharactersRequired:
+                numberLessThanMinNumberOfUpperCaseCharactersRequired,
           );
 
           // act
-          final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithLessThanMinNumberOfUpperCaseCharactersAtLeadingPositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithLessThanMinNumberOfUpperCaseCharactersAtLeadingPositions);
 
-          final isViolatedAtMinNumberOfCharactersRequiredAtTrailingPositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithLessMinNumberOfUpperCaseCharactersAtTrailingPositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtTrailingPositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithLessMinNumberOfUpperCaseCharactersAtTrailingPositions);
 
-          final isViolatedAtMinNumberOfCharactersRequiredAtMiddlePositions = upperCaseCharactersRequiredConstraint
-              .isViolatedOn(inputWithLesssMinNumberOfUpperCaseCharactersAtMiddlePositions);
+          final isViolatedAtMinNumberOfCharactersRequiredAtMiddlePositions =
+              upperCaseCharactersRequiredConstraint.isViolatedOn(
+                  inputWithLesssMinNumberOfUpperCaseCharactersAtMiddlePositions);
 
           // assert
           expect(

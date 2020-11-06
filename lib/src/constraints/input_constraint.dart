@@ -95,7 +95,10 @@ class UpperCaseCharactersRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    return !input.hasUpperCaseCharacters;
+    final upperCaseCharactersRegExp =
+        RegExp('[A-Z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}}');
+
+    return !upperCaseCharactersRegExp.hasMatch(input);
   }
 }
 
@@ -144,7 +147,10 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    return !input.hasLowerCaseCharacters;
+    final lowerCaseCharactersRegExp =
+        RegExp('[a-z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}');
+
+    return !lowerCaseCharactersRegExp.hasMatch(input);
   }
 }
 
@@ -192,7 +198,10 @@ class DigitsRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    return !input.hasDigits;
+    final digitsRegExp =
+        RegExp('[0-9]{$minDigitsRequired,${maxDigitsAllowed ?? ''}');
+
+    return !digitsRegExp.hasMatch(input);
   }
 }
 
@@ -222,9 +231,15 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
   /// Defaults to [false].
   final bool allNeedToBePresent;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to [false].
+  final bool caseSensitive;
+
   SpecialCharactersRequiredConstraint({
     @required this.specialCharacters,
     this.allNeedToBePresent = false,
+    this.caseSensitive = false,
     String violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
         assert(allNeedToBePresent != null),
@@ -250,8 +265,14 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
 
   bool areAllSpecialCharactersPresentIn(String input) {
     for (var specialCharacter in specialCharacters) {
-      if (!input.contains(specialCharacter)) {
-        return false;
+      if (caseSensitive) {
+        if (!input.toLowerCase().contains(specialCharacter.toLowerCase())) {
+          return false;
+        }
+      } else {
+        if (!input.contains(specialCharacter)) {
+          return false;
+        }
       }
     }
 
@@ -262,9 +283,16 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
     var anyOnePresent = false;
 
     for (var specialCharacter in specialCharacters) {
-      if (input.contains(specialCharacter)) {
-        anyOnePresent = true;
-        break;
+      if (caseSensitive) {
+        if (input.toLowerCase().contains(specialCharacter.toLowerCase())) {
+          anyOnePresent = true;
+          break;
+        }
+      } else {
+        if (input.contains(specialCharacter)) {
+          anyOnePresent = true;
+          break;
+        }
       }
     }
 
@@ -282,9 +310,15 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
   /// Defaults to [false].
   final bool allNeedToBePresent;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to [false].
+  final bool caseSensitive;
+
   SpecialWordsRequiredConstraint({
     @required this.specialWords,
     this.allNeedToBePresent = false,
+    this.caseSensitive = false,
     String violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
         assert(allNeedToBePresent != null),
@@ -306,8 +340,14 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
 
   bool areAllSpecialWordsPresentIn(String input) {
     for (var specialWord in specialWords) {
-      if (!input.contains(specialWord)) {
-        return false;
+      if (caseSensitive) {
+        if (!input.toLowerCase().contains(specialWord.toLowerCase())) {
+          return false;
+        }
+      } else {
+        if (!input.contains(specialWord)) {
+          return false;
+        }
       }
     }
 
@@ -318,9 +358,16 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
     var anyOnePresent = false;
 
     for (var specialWord in specialWords) {
-      if (input.contains(specialWord)) {
-        anyOnePresent = true;
-        break;
+      if (caseSensitive) {
+        if (input.toLowerCase().contains(specialWord.toLowerCase())) {
+          anyOnePresent = true;
+          break;
+        }
+      } else {
+        if (input.contains(specialWord)) {
+          anyOnePresent = true;
+          break;
+        }
       }
     }
 
@@ -333,8 +380,14 @@ class BlackListedCharactersConstraint extends InputConstraint {
   /// A list of characters that are black listed, i.e. shouldn't be present in the input.
   final List<String> blackListedCharacters;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to [false].
+  final bool caseSensitive;
+
   BlackListedCharactersConstraint({
     @required this.blackListedCharacters,
+    this.caseSensitive = false,
     String violationMessage = 'BlackListedCharacters constraint violated',
   })  : assert(blackListedCharacters != null),
         assert(
@@ -349,8 +402,14 @@ class BlackListedCharactersConstraint extends InputConstraint {
   @override
   bool isViolatedOn(String input) {
     for (var blackListedCharacter in blackListedCharacters) {
-      if (input.contains(blackListedCharacter)) {
-        return true;
+      if (caseSensitive) {
+        if (input.toLowerCase().contains(blackListedCharacter.toLowerCase())) {
+          return true;
+        }
+      } else {
+        if (input.contains(blackListedCharacter)) {
+          return true;
+        }
       }
     }
 
@@ -363,8 +422,14 @@ class BlackListedWordsConstraint extends InputConstraint {
   /// A list of words that are black listed, i.e. shouldn't be present in the input.
   final List<String> blackListedWords;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to [false].
+  final bool caseSensitive;
+
   BlackListedWordsConstraint({
     @required this.blackListedWords,
+    this.caseSensitive = false,
     String violationMessage = 'BlackListedWords constraint violated',
   })  : assert(blackListedWords != null),
         assert(blackListedWords
@@ -376,8 +441,14 @@ class BlackListedWordsConstraint extends InputConstraint {
   @override
   bool isViolatedOn(String input) {
     for (var blackListedWord in blackListedWords) {
-      if (input.contains(blackListedWord)) {
-        return true;
+      if (caseSensitive) {
+        if (input.toLowerCase().contains(blackListedWord.toLowerCase())) {
+          return true;
+        }
+      } else {
+        if (input.contains(blackListedWord)) {
+          return true;
+        }
       }
     }
 
@@ -392,9 +463,15 @@ class AvoidRepeatingCharactersConstraint extends InputConstraint {
   /// Maximum number of times any character in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to [false].
+  final bool caseSensitive;
+
   AvoidRepeatingCharactersConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingCharactersConstraint.defaultMaxNumberOfRepetitionsAllowed,
+    this.caseSensitive = false,
     String violationMessage = 'AvoidRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(maxNumberOfRepetitionsAllowed >= 0),
@@ -408,20 +485,21 @@ class AvoidRepeatingCharactersConstraint extends InputConstraint {
     final charactersCountTable = <String, int>{};
 
     for (var i = 0; i < input.length; ++i) {
-      if (charactersCountTable.containsKey(input[i])) {
-        charactersCountTable[input[i]] += 1;
+      final characterAtCurrentIndex =
+          caseSensitive ? input[i].toLowerCase() : input[i];
+
+      if (charactersCountTable.containsKey(characterAtCurrentIndex)) {
+        charactersCountTable[characterAtCurrentIndex] += 1;
       } else {
-        charactersCountTable[input[i]] = 1;
+        charactersCountTable[characterAtCurrentIndex] = 1;
       }
     }
 
-    for (var characterCount in charactersCountTable.entries) {
-      if (characterCount.value > maxNumberOfRepetitionsAllowed) {
-        return false;
-      }
-    }
-
-    return true;
+    return charactersCountTable.values
+        .where(
+          (count) => count > maxNumberOfRepetitionsAllowed,
+        )
+        .isNotEmpty;
   }
 }
 
@@ -432,9 +510,15 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
   /// Maximum number of times any alphabet in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to [false].
+  final bool caseSensitive;
+
   AvoidRepeatingAlphabetsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingAlphabetsConstraint.defaultMaxNumberOfRepetitionsAllowed,
+    this.caseSensitive = false,
     String violationMessage = 'AvoidRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(maxNumberOfRepetitionsAllowed >= 0),
@@ -449,21 +533,20 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
 
     for (var i = 0; i < input.length; ++i) {
       if (input[i].hasAlphabets) {
-        if (alphabetsCountTable.containsKey(input[i])) {
-          alphabetsCountTable[input[i]] += 1;
+        final alphabetAtCurrentIndex =
+            caseSensitive ? input[i].toLowerCase() : input[i];
+
+        if (alphabetsCountTable.containsKey(alphabetAtCurrentIndex)) {
+          alphabetsCountTable[alphabetAtCurrentIndex] += 1;
         } else {
-          alphabetsCountTable[input[i]] = 1;
+          alphabetsCountTable[alphabetAtCurrentIndex] = 1;
         }
       }
     }
 
-    for (var characterCount in alphabetsCountTable.entries) {
-      if (characterCount.value > maxNumberOfRepetitionsAllowed) {
-        return false;
-      }
-    }
-
-    return true;
+    return alphabetsCountTable.values
+        .where((count) => count > maxNumberOfRepetitionsAllowed)
+        .isNotEmpty;
   }
 }
 
@@ -712,7 +795,9 @@ class AvoidSequentialDigitsConstraint extends InputConstraint {
 
     for (var i = 0; i < input.length; ++i) {
       if (i + 1 + maxSequenceLength <= input.length &&
-          input.substring(i, i + 1 + maxSequenceLength).hasOnlyConsecutiveDigits) {
+          input
+              .substring(i, i + 1 + maxSequenceLength)
+              .hasOnlyConsecutiveDigits) {
         return true;
       }
     }

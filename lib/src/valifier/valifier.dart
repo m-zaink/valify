@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:valify/constraints/input_constraint.dart';
+import 'package:valify/src/constraints/input_constraint.dart';
 
 /// Describes a constraints pipeline (valifying pipeline).
 ///

@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:valify/constraints/input_constraint.dart';
+import 'package:valify/src/constraints/input_constraint.dart';
 
 void testMinLengthRequiredConstraint() {
   group(
