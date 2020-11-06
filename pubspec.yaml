@@ -1,8 +1,7 @@
 name: valify
 description: Validate your inputs like never before with highly intuitive constraint classes
 version: 0.0.1
-author: m_zaink
-homepage:
+homepage: 'https://github.com/m-zaink/valify/wiki/Valify'
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
