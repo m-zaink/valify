@@ -212,15 +212,22 @@ class AvoidDigitsConstraint extends InputConstraint {
   }
 }
 
-/// Constraint on a list of special characters to be present in the input.
+/// Constraint on a list of special characters that may be present in the input.
 class SpecialCharactersRequiredConstraint extends InputConstraint {
-  /// A list of characters that need to be present in the input.
+  /// A list of characters that may be present in the input.
   final List<String> specialCharacters;
+
+  /// Indicates whether every character in the list need to be present in the input.
+  ///
+  /// Defaults to [false].
+  final bool allNeedToBePresent;
 
   SpecialCharactersRequiredConstraint({
     @required this.specialCharacters,
+    this.allNeedToBePresent = false,
     String violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
+        assert(allNeedToBePresent != null),
         assert(
           specialCharacters.every((specialCharacter) =>
               specialCharacter != null && specialCharacter.length == 1),
@@ -232,6 +239,16 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
   /// Otherwise returns [false].
   @override
   bool isViolatedOn(String input) {
+    assert(input != null);
+
+    if (allNeedToBePresent) {
+      return areAllSpecialCharactersPresentIn(input);
+    } else {
+      return areAnySpecialCharactersPresentIn(input);
+    }
+  }
+
+  bool areAllSpecialCharactersPresentIn(String input) {
     for (var specialCharacter in specialCharacters) {
       if (!input.contains(specialCharacter)) {
         return true;
@@ -240,17 +257,37 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
 
     return false;
   }
+
+  bool areAnySpecialCharactersPresentIn(String input) {
+    var anyOnePresent = false;
+
+    for (var specialCharacter in specialCharacters) {
+      if (input.contains(specialCharacter)) {
+        anyOnePresent = true;
+        break;
+      }
+    }
+
+    return anyOnePresent;
+  }
 }
 
-/// Constraint on a list of special words to be present in the input.
+/// Constraint on a list of special word that may be present in the input.
 class SpecialWordsRequiredConstraint extends InputConstraint {
-  /// A list of words that need to be present in the input.
+  /// A list of words that may be present in the input.
   final List<String> specialWords;
+
+  /// Indicates whether every word in the list need to be present in the input.
+  ///
+  /// Defaults to [false].
+  final bool allNeedToBePresent;
 
   SpecialWordsRequiredConstraint({
     @required this.specialWords,
+    this.allNeedToBePresent = false,
     String violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
+        assert(allNeedToBePresent != null),
         assert(specialWords.every((specialWord) => specialWord != null)),
         super(violationMessage);
 
@@ -258,13 +295,36 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
   /// Otherwise returns [false].
   @override
   bool isViolatedOn(String input) {
+    assert(input != null);
+
+    if (allNeedToBePresent) {
+      return areAllSpecialWordsPresentIn(input);
+    } else {
+      return areAnySpecialWordsPresentIn(input);
+    }
+  }
+
+  bool areAllSpecialWordsPresentIn(String input) {
     for (var specialWord in specialWords) {
       if (!input.contains(specialWord)) {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    return false;
+  }
+
+  bool areAnySpecialWordsPresentIn(String input) {
+    var anyOnePresent = false;
+
+    for (var specialWord in specialWords) {
+      if (input.contains(specialWord)) {
+        anyOnePresent = true;
+        break;
+      }
+    }
+
+    return anyOnePresent;
   }
 }
 
