@@ -704,6 +704,22 @@ class AvoidSequentialDigitsConstraint implements InputConstraint {
   }
 }
 
+
+/// Constraint on avoiding empty inputs.
+class AvoidEmptinessConstraint implements InputConstraint {
+  @override
+  final String violationMessage;
+
+  /// If the input is empty, then returns [true].
+  /// Otherwise returns [false].
+  @override
+  bool isViolatedOn(String input) {
+    assert(input != null);
+
+    return input.isEmpty;
+  }
+}
+
 extension _StringX on String {
   bool get hasAlphabets => RegExp('[A-Za-z]').hasMatch(this);
 
