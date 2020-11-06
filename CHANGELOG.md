@@ -2,3 +2,7 @@
 
 * Contains the basic set up along with a bunch of input constraints
 * TODO: Add documentation and complete set of test cases
+
+## [0.0.2] - 6/11/2020
+
+* Contains a `allNeedToBePresent` parameter under SpecialCharactersRequiredConstraint for better flexibility
