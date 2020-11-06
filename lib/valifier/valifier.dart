@@ -4,7 +4,7 @@ import 'package:valify/constraints/input_constraint.dart';
 /// Describes a constraints pipeline (valifying pipeline).
 ///
 /// Exposes a list of methods that can be used to verify if any violations did occur, fetch a list of violations or
-/// the first violation is the list of violations that occured.
+/// the first violation in the list of violations that occured.
 abstract class Valifier {
   /// If any constraint from the constraint pipeline is violated on [input], then returns [true].
   /// Otherwise returns [false].
