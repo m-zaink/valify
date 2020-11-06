@@ -14,3 +14,7 @@
 ## [0.0.2+2] - 6/11/2020
 
 * Hot fix on SpecialCharactersRequiredConstraint and SpecialWordsRequiredConstraint
+
+## [0.0.2+3] - 6/11/2020
+
+* Hot fix on _StringX extension

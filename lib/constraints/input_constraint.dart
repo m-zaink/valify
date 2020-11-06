@@ -740,11 +740,51 @@ class AvoidEmptinessConstraint extends InputConstraint {
 extension _StringX on String {
   bool get hasAlphabets => RegExp('[A-Za-z]').hasMatch(this);
 
+  bool get hasAllAlphabets {
+    for (var i = 0; i < length; ++i) {
+      if (!this[i].hasAlphabets) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   bool get hasUpperCaseCharacters => RegExp('[A-Z]').hasMatch(this);
+
+  bool get hasAllUpperCaseCharacters {
+    for (var i = 0; i < length; ++i) {
+      if (!this[i].hasUpperCaseCharacters) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   bool get hasLowerCaseCharacters => RegExp('[a-z]').hasMatch(this);
 
+  bool get hasAllLowerCaseCharacters {
+    for (var i = 0; i < length; ++i) {
+      if (!this[i].hasLowerCaseCharacters) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   bool get hasDigits => RegExp('[0-9]').hasMatch(this);
+
+  bool get hasAllDigits {
+    for (var i = 0; i < length; ++i) {
+      if (!this[i].hasDigits) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   bool get hasAllIdenticalCharacters {
     assert(length != 0);
@@ -761,25 +801,33 @@ extension _StringX on String {
   bool get hasAllIdenticalAlphabets {
     assert(length != 0);
 
-    for (var i = 0; i < length; ++i) {
-      if (i + 1 < length && this[i].hasAlphabets && this[i] != this[i + 1]) {
-        return false;
+    if (hasAllAlphabets) {
+      for (var i = 0; i < length; ++i) {
+        if (i + 1 < length && this[i] != this[i + 1]) {
+          return false;
+        }
       }
-    }
 
-    return true;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   bool get hasAllIdenticalDigits {
     assert(length != 0);
 
-    for (var i = 0; i < length; ++i) {
-      if (i + 1 < length && this[i].hasDigits && this[i] != this[i + 1]) {
-        return false;
+    if (hasAllDigits) {
+      for (var i = 0; i < length; ++i) {
+        if (i + 1 < length && this[i] != this[i + 1]) {
+          return false;
+        }
       }
-    }
 
-    return true;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   bool get hasOnlyConsecutiveCharacters {
@@ -798,28 +846,34 @@ extension _StringX on String {
   bool get hasOnlyConsecutiveAlphabets {
     assert(length != 0);
 
-    for (var i = 0; i < length; ++i) {
-      if (i + 1 < length &&
-          this[i].hasAlphabets &&
-          this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
-        return false;
+    if (hasAllAlphabets) {
+      for (var i = 0; i < length; ++i) {
+        if (i + 1 < length &&
+            this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
+          return false;
+        }
       }
-    }
 
-    return true;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   bool get hasOnlyConsecutiveDigits {
     assert(length != 0);
 
-    for (var i = 0; i < length; ++i) {
-      if (i + 1 < length &&
-          this[i].hasDigits &&
-          this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
-        return false;
+    if (hasAllDigits) {
+      for (var i = 0; i < length; ++i) {
+        if (i + 1 < length &&
+            this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
+          return false;
+        }
       }
-    }
 
-    return true;
+      return true;
+    } else {
+      return false;
+    }
   }
 }
