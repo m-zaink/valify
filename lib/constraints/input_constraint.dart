@@ -4,8 +4,12 @@ import 'package:meta/meta.dart';
 abstract class InputConstraint {
   /// Is the message that need to be shown if the constraint is violated.
   ///
-  /// This can be set when be used later on when violation occurs.
-  String get violationMessage;
+  /// This can be set ahead-of-time to be used later on when violation occurs.
+  final String violationMessage;
+
+  InputConstraint(
+    this.violationMessage,
+  ) : assert(violationMessage != null);
 
   /// Verifies if the constraint is violated for the given [input].
   ///
@@ -15,20 +19,17 @@ abstract class InputConstraint {
 }
 
 /// Constraint on the maximum length of the input.
-class MaximumLengthLimitingConstraint implements InputConstraint {
+class MaximumLengthLimitingConstraint extends InputConstraint {
   static const int defaultMaxLength = 64;
 
   /// Length beyond which the input is said to be violating the constraint.
   final int maxLength;
 
-  @override
-  final String violationMessage;
-
   MaximumLengthLimitingConstraint({
     this.maxLength = MaximumLengthLimitingConstraint.defaultMaxLength,
-    this.violationMessage = 'MaximumLengthLimiting constraint violated',
+    String violationMessage = 'MaximumLengthLimiting constraint violated',
   })  : assert(maxLength != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If [input.length] > [maxLength], returns [true].
   /// Otherwise returns [false].
@@ -41,20 +42,17 @@ class MaximumLengthLimitingConstraint implements InputConstraint {
 }
 
 /// Constraint on the minimum length of the input.
-class MinimumLengthRequiredConstraint implements InputConstraint {
+class MinimumLengthRequiredConstraint extends InputConstraint {
   static const int defaultMinLength = 8;
 
   /// Length below which the input is said to be violating the constraint.
   final int minLength;
 
-  @override
-  final String violationMessage;
-
   MinimumLengthRequiredConstraint({
     this.minLength = MinimumLengthRequiredConstraint.defaultMinLength,
-    this.violationMessage = 'MinimumLengthRequired constraint violated',
+    String violationMessage = 'MinimumLengthRequired constraint violated',
   })  : assert(minLength != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If [input.length] < [minLength], then returns [true].
   /// Otherwise returns [false].
@@ -67,7 +65,7 @@ class MinimumLengthRequiredConstraint implements InputConstraint {
 }
 
 /// Constraint on upper case characters being present in the input.
-class UpperCaseCharactersRequiredConstraint implements InputConstraint {
+class UpperCaseCharactersRequiredConstraint extends InputConstraint {
   static const int defaultMinCharactersRequired = 1;
 
   /// Minimum number of characters that need to be upper cased.
@@ -76,18 +74,15 @@ class UpperCaseCharactersRequiredConstraint implements InputConstraint {
   /// Maximum number of characters that can be upper cased.
   final int maxCharactersAllowed;
 
-  @override
-  final String violationMessage;
-
   UpperCaseCharactersRequiredConstraint({
     this.minCharactersRequired =
         UpperCaseCharactersRequiredConstraint.defaultMinCharactersRequired,
     this.maxCharactersAllowed,
-    this.violationMessage = 'UpperCaseCharactersRequired constraint violated',
+    String violationMessage = 'UpperCaseCharactersRequired constraint violated',
   })  : assert(minCharactersRequired != null),
         assert(maxCharactersAllowed == null ||
             maxCharactersAllowed >= minCharactersRequired),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If [input] contains atleast [minCharactersRequired] number of upper case characters
   /// (and contains at most [maxCharactersAllowed] numbers of upper case characters
@@ -103,14 +98,11 @@ class UpperCaseCharactersRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint to disallowing any upper case characters in the input.
-class AvoidUpperCaseCharactersConstraint implements InputConstraint {
-  @override
-  final String violationMessage;
-
+/// Constraint to disallow any upper case characters in the input.
+class AvoidUpperCaseCharactersConstraint extends InputConstraint {
   AvoidUpperCaseCharactersConstraint({
-    this.violationMessage = 'AvoidUpperCaseCharacters constraint violated',
-  }) : assert(violationMessage != null);
+    String violationMessage = 'AvoidUpperCaseCharacters constraint violated',
+  }) : super(violationMessage);
 
   /// If input contains even one upper case character, then returns [true].
   /// Otherwise returns [false].
@@ -125,7 +117,7 @@ class AvoidUpperCaseCharactersConstraint implements InputConstraint {
 }
 
 /// Constraint on lower case characters being present in the input.
-class LowerCaseCharactersRequiredConstraint implements InputConstraint {
+class LowerCaseCharactersRequiredConstraint extends InputConstraint {
   static const int defaultMinCharactersRequired = 1;
 
   /// Minimum number of characters that need to be lower cased.
@@ -134,18 +126,15 @@ class LowerCaseCharactersRequiredConstraint implements InputConstraint {
   /// Maximum number of characters that can be lower cased.
   final int maxCharactersAllowed;
 
-  @override
-  final String violationMessage;
-
   LowerCaseCharactersRequiredConstraint({
     this.minCharactersRequired =
         LowerCaseCharactersRequiredConstraint.defaultMinCharactersRequired,
     this.maxCharactersAllowed,
-    this.violationMessage = 'LowerCaseCharactersRequired constraint violated',
+    String violationMessage = 'LowerCaseCharactersRequired constraint violated',
   })  : assert(minCharactersRequired != null),
         assert(maxCharactersAllowed == null ||
             maxCharactersAllowed >= minCharactersRequired),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If [input] contains atleast [minCharactersRequired] number of lower case characters
   /// (and contains at most [maxCharactersAllowed] numbers of lower case characters
@@ -161,14 +150,11 @@ class LowerCaseCharactersRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint to disallowing any lower case characters in the input.
-class AvoidLowerCaseCharactersConstraint implements InputConstraint {
-  @override
-  final String violationMessage;
-
+/// Constraint to disallow any lower case characters in the input.
+class AvoidLowerCaseCharactersConstraint extends InputConstraint {
   AvoidLowerCaseCharactersConstraint({
-    this.violationMessage = 'AvoidLowerCaseCharacters constraint violated',
-  }) : assert(violationMessage != null);
+    String violationMessage = 'AvoidLowerCaseCharacters constraint violated',
+  }) : super(violationMessage);
 
   /// If input contains even one lower case character, then returns [true].
   /// Otherwise returns [false].
@@ -183,7 +169,7 @@ class AvoidLowerCaseCharactersConstraint implements InputConstraint {
 }
 
 /// Constraint on digts being present in the input.
-class DigitsRequiredConstraint implements InputConstraint {
+class DigitsRequiredConstraint extends InputConstraint {
   static const int defaultMinDigitsRequired = 1;
 
   /// Minimum number of digits that need to be present in the input.
@@ -192,17 +178,14 @@ class DigitsRequiredConstraint implements InputConstraint {
   /// Maximum number of digits that can be present in the input.
   final int maxDigitsAllowed;
 
-  @override
-  final String violationMessage;
-
   DigitsRequiredConstraint({
     this.minDigitsRequired = DigitsRequiredConstraint.defaultMinDigitsRequired,
     this.maxDigitsAllowed,
-    this.violationMessage = 'DigitsRequired constraint violated',
+    String violationMessage = 'DigitsRequired constraint violated',
   })  : assert(minDigitsRequired != null),
         assert(
             maxDigitsAllowed != null || maxDigitsAllowed >= minDigitsRequired),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If [input] contains atleast [minDigitsRequired] number of digits
   /// (and contains at most [maxDigitsAllowed] numbers of digits
@@ -218,14 +201,11 @@ class DigitsRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint to disallowing any digits in the input.
-class AvoidDigitsConstraint implements InputConstraint {
-  @override
-  final String violationMessage;
-
+/// Constraint to disallow any digits in the input.
+class AvoidDigitsConstraint extends InputConstraint {
   AvoidDigitsConstraint({
-    this.violationMessage = 'AvoidDigits constraint violated',
-  }) : assert(violationMessage != null);
+    String violationMessage = 'AvoidDigits constraint violated',
+  }) : super(violationMessage);
 
   /// If input contains even one digit, then returns [true].
   /// Otherwise returns [false].
@@ -239,19 +219,16 @@ class AvoidDigitsConstraint implements InputConstraint {
   }
 }
 
-/// Constraint on a list of special characters being present in the input.
-class SpecialCharactersRequiredConstraint implements InputConstraint {
+/// Constraint on a list of special characters to be present in the input.
+class SpecialCharactersRequiredConstraint extends InputConstraint {
   /// A list of characters that need to be present in the input.
   final List<String> specialCharacters;
 
-  @override
-  final String violationMessage;
-
   SpecialCharactersRequiredConstraint({
     @required this.specialCharacters,
-    this.violationMessage = 'SpecialCharactersRequired constraint violated',
+    String violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If input contains all the characters in the list of [specialCharacters], then returns [true].
   /// Otherwise returns [false].
@@ -267,19 +244,16 @@ class SpecialCharactersRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint on a list of special words being present in the input.
-class SpecialWordsRequiredConstraint implements InputConstraint {
+/// Constraint on a list of special words to be present in the input.
+class SpecialWordsRequiredConstraint extends InputConstraint {
   /// A list of words that need to be present in the input.
   final List<String> specialWords;
 
-  @override
-  final String violationMessage;
-
   SpecialWordsRequiredConstraint({
     @required this.specialWords,
-    this.violationMessage = 'SpecialWordsRequired constraint violated',
+    String violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If input contains all the word in the list of [specialWords], then returns [true].
   /// Otherwise returns [false].
@@ -295,19 +269,16 @@ class SpecialWordsRequiredConstraint implements InputConstraint {
   }
 }
 
-/// Constraint on a list of black list characters being NOT present in the input.
-class BlackListedCharactersConstraint implements InputConstraint {
+/// Constraint on disallowing a list of black listed characters from the input.
+class BlackListedCharactersConstraint extends InputConstraint {
   /// A list of characters that are black listed, i.e. shouldn't be present in the input.
   final List<String> blackListedCharacters;
 
-  @override
-  final String violationMessage;
-
   BlackListedCharactersConstraint({
     @required this.blackListedCharacters,
-    this.violationMessage = 'BlackListedCharacters constraint violated',
+    String violationMessage = 'BlackListedCharacters constraint violated',
   })  : assert(blackListedCharacters != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If any character in the list of [blackListedCharacters] is present in the input, returns [true].
   /// Otherwise returns [false].
@@ -323,19 +294,16 @@ class BlackListedCharactersConstraint implements InputConstraint {
   }
 }
 
-/// Constraint on a list of black list words being NOT present in the input.
-class BlackListedWordsConstraint implements InputConstraint {
+/// Constraint on disallowing a list of black listed words from the input.
+class BlackListedWordsConstraint extends InputConstraint {
   /// A list of words that are black listed, i.e. shouldn't be present in the input.
   final List<String> blackListedWords;
 
-  @override
-  final String violationMessage;
-
   BlackListedWordsConstraint({
     @required this.blackListedWords,
-    this.violationMessage = 'BlackListedWords constraint violated',
+    String violationMessage = 'BlackListedWords constraint violated',
   })  : assert(blackListedWords != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If any word in the list of [blackListedCharacters] is present in the input, returns [true].
   /// Otherwise returns [false].
@@ -352,20 +320,18 @@ class BlackListedWordsConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the number of times any character in the input can repeat.
-class AvoidRepeatingCharactersConstraint implements InputConstraint {
+class AvoidRepeatingCharactersConstraint extends InputConstraint {
   static const int defaultMaxNumberOfRepetitionsAllowed = 2;
 
   /// Maximum number of times any character in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
-  @override
-  final String violationMessage;
-
   AvoidRepeatingCharactersConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingCharactersConstraint.defaultMaxNumberOfRepetitionsAllowed,
-    this.violationMessage = 'AvoidRepeatingCharacters constraint violated',
-  }) : assert(maxNumberOfRepetitionsAllowed != null);
+    String violationMessage = 'AvoidRepeatingCharacters constraint violated',
+  })  : assert(maxNumberOfRepetitionsAllowed != null),
+        super(violationMessage);
 
   /// If any character is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
   /// Otherwise returns [false].
@@ -393,20 +359,18 @@ class AvoidRepeatingCharactersConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the number of times any alphabet in the input can repeat.
-class AvoidRepeatingAlphabetsConstraint implements InputConstraint {
+class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
   static const int defaultMaxNumberOfRepetitionsAllowed = 2;
 
   /// Maximum number of times any alphabet in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
-  @override
-  final String violationMessage;
-
   AvoidRepeatingAlphabetsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingAlphabetsConstraint.defaultMaxNumberOfRepetitionsAllowed,
-    this.violationMessage = 'AvoidRepeatingAlphabets constraint violated',
-  }) : assert(maxNumberOfRepetitionsAllowed != null);
+    String violationMessage = 'AvoidRepeatingAlphabets constraint violated',
+  })  : assert(maxNumberOfRepetitionsAllowed != null),
+        super(violationMessage);
 
   /// If any alphabet is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
   /// Otherwise returns [false].
@@ -436,20 +400,18 @@ class AvoidRepeatingAlphabetsConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the number of times any digit in the input can repeat.
-class AvoidRepeatingDigitsConstraint implements InputConstraint {
+class AvoidRepeatingDigitsConstraint extends InputConstraint {
   static const int defaultmaxNumberOfRepetitionsAllowed = 2;
 
   /// Maximum number of times any digit in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
-  @override
-  final String violationMessage;
-
   AvoidRepeatingDigitsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingDigitsConstraint.defaultmaxNumberOfRepetitionsAllowed,
-    this.violationMessage = 'AvoidRepeatingDigits constraint violated',
-  }) : assert(maxNumberOfRepetitionsAllowed != null);
+    String violationMessage = 'AvoidRepeatingDigits constraint violated',
+  })  : assert(maxNumberOfRepetitionsAllowed != null),
+        super(violationMessage);
 
   @override
   bool isViolatedOn(String input) {
@@ -477,8 +439,7 @@ class AvoidRepeatingDigitsConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the number of a times any character in the input to repeat consecutively.
-class AvoidConsecutivelyRepeatingCharactersConstraint
-    implements InputConstraint {
+class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
   static const int defaultMaxNumberOfRepetitionsAllowed = 2;
 
   /// Maximum number of times any character in the input is allowed to be repeated consecutively.
@@ -488,13 +449,10 @@ class AvoidConsecutivelyRepeatingCharactersConstraint
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingCharactersConstraint
             .defaultMaxNumberOfRepetitionsAllowed,
-    this.violationMessage =
+    String violationMessage =
         'AvoidConsecutivelyRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
-        assert(violationMessage != null);
-
-  @override
-  final String violationMessage;
+        super(violationMessage);
 
   /// If any character is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
   /// then returns [true].
@@ -517,24 +475,20 @@ class AvoidConsecutivelyRepeatingCharactersConstraint
 }
 
 /// Constraint on limiting the number of a times any alphabet in the input to repeat consecutively.
-class AvoidConsecutivelyRepeatingAlphabetsConstraint
-    implements InputConstraint {
+class AvoidConsecutivelyRepeatingAlphabetsConstraint extends InputConstraint {
   static const int defaultmaxNumberOfRepetitionsAllowed = 2;
 
   /// Maximum number of times any alphabet in the input is allowed to be repeated consecutively.
   final int maxNumberOfRepetitionsAllowed;
 
-  @override
-  final String violationMessage;
-
   AvoidConsecutivelyRepeatingAlphabetsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingDigitsConstraint
             .defaultmaxNumberOfRepetitionsAllowed,
-    this.violationMessage =
+    String violationMessage =
         'AvoidConsecutivelyRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If any alphabet is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
   /// then returns [true].
@@ -557,23 +511,20 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint
 }
 
 /// Constraint on limiting the number of a times any digit in the input to repeat consecutively.
-class AvoidConsecutivelyRepeatingDigitsConstraint implements InputConstraint {
+class AvoidConsecutivelyRepeatingDigitsConstraint extends InputConstraint {
   static const int defaultmaxNumberOfRepetitionsAllowed = 2;
 
   /// Maximum number of times any digit in the input is allowed to be repeated consecutively.
   final int maxNumberOfRepetitionsAllowed;
 
-  @override
-  final String violationMessage;
-
   AvoidConsecutivelyRepeatingDigitsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingDigitsConstraint
             .defaultmaxNumberOfRepetitionsAllowed,
-    this.violationMessage =
+    String violationMessage =
         'AvoidConsecutivelyRepeatingDigits constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
-        assert(violationMessage != null);
+        super(violationMessage);
 
   /// If any digit is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
   /// then returns [true].
@@ -596,21 +547,19 @@ class AvoidConsecutivelyRepeatingDigitsConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the length of sequence of consecutive characters.
-class AvoidSequentialCharactersConstraint implements InputConstraint {
+class AvoidSequentialCharactersConstraint extends InputConstraint {
   static const int defaultMaxSequenceLength = 3;
 
   /// Maximum length of the sequence of consecutve characters.
   final int maxSequenceLength;
 
-  @override
-  final String violationMessage;
-
   AvoidSequentialCharactersConstraint({
     this.maxSequenceLength =
         AvoidSequentialCharactersConstraint.defaultMaxSequenceLength,
-    this.violationMessage = 'AvoidSequentialCharacters constraint violated',
+    String violationMessage = 'AvoidSequentialCharacters constraint violated',
   })  : assert(maxSequenceLength != null),
-        assert(maxSequenceLength > 1);
+        assert(maxSequenceLength > 1),
+        super(violationMessage);
 
   /// If any sequenc with alphabetically consecutive characters is found
   /// with length > [mexSequenceLength], returns [true].
@@ -633,21 +582,19 @@ class AvoidSequentialCharactersConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the length of sequence of alphabetically consecutive letters.
-class AvoidSequentialAlphabetsConstraint implements InputConstraint {
+class AvoidSequentialAlphabetsConstraint extends InputConstraint {
   static const int defaultMaxSequenceLength = 3;
 
   /// Maximum length of the sequence of alphabetically consecutve characters.
   final int maxSequenceLength;
 
-  @override
-  final String violationMessage;
-
   AvoidSequentialAlphabetsConstraint({
     this.maxSequenceLength =
         AvoidSequentialAlphabetsConstraint.defaultMaxSequenceLength,
-    this.violationMessage = 'AvoidSequentialAlphabets constraint violated',
+    String violationMessage = 'AvoidSequentialAlphabets constraint violated',
   })  : assert(maxSequenceLength != null),
-        assert(maxSequenceLength > 1);
+        assert(maxSequenceLength > 1),
+        super(violationMessage);
 
   /// If any sequenc with alphabetically consecutive characters is found
   /// with length > [mexSequenceLength], returns [true].
@@ -670,21 +617,19 @@ class AvoidSequentialAlphabetsConstraint implements InputConstraint {
 }
 
 /// Constraint on limiting the length of sequence of numerically consecutive digits.
-class AvoidSequentialDigitsConstraint implements InputConstraint {
+class AvoidSequentialDigitsConstraint extends InputConstraint {
   static const int defaultMaxSequenceLength = 3;
 
   /// Maximum length of the sequence of numerically consecutive digits.
   final int maxSequenceLength;
 
-  @override
-  final String violationMessage;
-
   AvoidSequentialDigitsConstraint({
     this.maxSequenceLength =
         AvoidSequentialDigitsConstraint.defaultMaxSequenceLength,
-    this.violationMessage = 'AvoidSequentialDigits constraint violated',
+    String violationMessage = 'AvoidSequentialDigits constraint violated',
   })  : assert(maxSequenceLength != null),
-        assert(maxSequenceLength > 1);
+        assert(maxSequenceLength > 1),
+        super(violationMessage);
 
   /// If any sequenc with numerically consecutive digits is found
   /// with length > [mexSequenceLength], returns [true].
@@ -704,11 +649,11 @@ class AvoidSequentialDigitsConstraint implements InputConstraint {
   }
 }
 
-
 /// Constraint on avoiding empty inputs.
-class AvoidEmptinessConstraint implements InputConstraint {
-  @override
-  final String violationMessage;
+class AvoidEmptinessConstraint extends InputConstraint {
+  AvoidEmptinessConstraint({
+    String violationMessage = 'AvoidEmptiness constraint violated',
+  }) : super(violationMessage);
 
   /// If the input is empty, then returns [true].
   /// Otherwise returns [false].
