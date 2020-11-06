@@ -29,6 +29,7 @@ class MaximumLengthLimitingConstraint extends InputConstraint {
     this.maxLength = MaximumLengthLimitingConstraint.defaultMaxLength,
     String violationMessage = 'MaximumLengthLimiting constraint violated',
   })  : assert(maxLength != null),
+        assert(maxLength >= 0),
         super(violationMessage);
 
   /// If [input.length] > [maxLength], returns [true].
@@ -52,6 +53,7 @@ class MinimumLengthRequiredConstraint extends InputConstraint {
     this.minLength = MinimumLengthRequiredConstraint.defaultMinLength,
     String violationMessage = 'MinimumLengthRequired constraint violated',
   })  : assert(minLength != null),
+        assert(minLength >= 0),
         super(violationMessage);
 
   /// If [input.length] < [minLength], then returns [true].
@@ -80,6 +82,7 @@ class UpperCaseCharactersRequiredConstraint extends InputConstraint {
     this.maxCharactersAllowed,
     String violationMessage = 'UpperCaseCharactersRequired constraint violated',
   })  : assert(minCharactersRequired != null),
+        assert(minCharactersRequired >= 0),
         assert(maxCharactersAllowed == null ||
             maxCharactersAllowed >= minCharactersRequired),
         super(violationMessage);
@@ -92,9 +95,7 @@ class UpperCaseCharactersRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final regExForUpperCaseCharacters =
-        RegExp('[A-Z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}}');
-    return !regExForUpperCaseCharacters.hasMatch(input);
+    return !input.hasUpperCaseCharacters;
   }
 }
 
@@ -110,9 +111,7 @@ class AvoidUpperCaseCharactersConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final regExForUpperCaseCharacters = RegExp('[A-Z]');
-
-    return regExForUpperCaseCharacters.hasMatch(input);
+    return input.hasUpperCaseCharacters;
   }
 }
 
@@ -132,6 +131,7 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
     this.maxCharactersAllowed,
     String violationMessage = 'LowerCaseCharactersRequired constraint violated',
   })  : assert(minCharactersRequired != null),
+        assert(minCharactersRequired >= 0),
         assert(maxCharactersAllowed == null ||
             maxCharactersAllowed >= minCharactersRequired),
         super(violationMessage);
@@ -144,9 +144,7 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final regExForLowerCaseCharacters =
-        RegExp('[a-z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}}');
-    return !regExForLowerCaseCharacters.hasMatch(input);
+    return !input.hasLowerCaseCharacters;
   }
 }
 
@@ -162,9 +160,7 @@ class AvoidLowerCaseCharactersConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final regExForLowerCaseCharacters = RegExp('[a-z]');
-
-    return regExForLowerCaseCharacters.hasMatch(input);
+    return input.hasLowerCaseCharacters;
   }
 }
 
@@ -183,6 +179,7 @@ class DigitsRequiredConstraint extends InputConstraint {
     this.maxDigitsAllowed,
     String violationMessage = 'DigitsRequired constraint violated',
   })  : assert(minDigitsRequired != null),
+        assert(minDigitsRequired >= 0),
         assert(
             maxDigitsAllowed != null || maxDigitsAllowed >= minDigitsRequired),
         super(violationMessage);
@@ -195,9 +192,7 @@ class DigitsRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final regExForDigits =
-        RegExp('[0-9]{$minDigitsRequired,${maxDigitsAllowed ?? ''}}');
-    return !regExForDigits.hasMatch(input);
+    return !input.hasDigits;
   }
 }
 
@@ -213,9 +208,7 @@ class AvoidDigitsConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final regExForDigits = RegExp('[0-9]');
-
-    return regExForDigits.hasMatch(input);
+    return input.hasDigits;
   }
 }
 
@@ -228,6 +221,11 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
     @required this.specialCharacters,
     String violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
+        assert(
+          specialCharacters.every((specialCharacter) =>
+              specialCharacter != null && specialCharacter.length == 1),
+          'Character strings cannot be null and should be exactly 1 character long',
+        ),
         super(violationMessage);
 
   /// If input contains all the characters in the list of [specialCharacters], then returns [true].
@@ -253,6 +251,7 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
     @required this.specialWords,
     String violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
+        assert(specialWords.every((specialWord) => specialWord != null)),
         super(violationMessage);
 
   /// If input contains all the word in the list of [specialWords], then returns [true].
@@ -278,6 +277,11 @@ class BlackListedCharactersConstraint extends InputConstraint {
     @required this.blackListedCharacters,
     String violationMessage = 'BlackListedCharacters constraint violated',
   })  : assert(blackListedCharacters != null),
+        assert(
+          blackListedCharacters.every((blackListedCharacter) =>
+              blackListedCharacter != null && blackListedCharacter.length == 1),
+          'Character strings cannot be null and should be exactly 1 character long',
+        ),
         super(violationMessage);
 
   /// If any character in the list of [blackListedCharacters] is present in the input, returns [true].
@@ -303,6 +307,8 @@ class BlackListedWordsConstraint extends InputConstraint {
     @required this.blackListedWords,
     String violationMessage = 'BlackListedWords constraint violated',
   })  : assert(blackListedWords != null),
+        assert(blackListedWords
+            .every((blackListedWord) => blackListedWord != null)),
         super(violationMessage);
 
   /// If any word in the list of [blackListedCharacters] is present in the input, returns [true].
@@ -331,6 +337,7 @@ class AvoidRepeatingCharactersConstraint extends InputConstraint {
         AvoidRepeatingCharactersConstraint.defaultMaxNumberOfRepetitionsAllowed,
     String violationMessage = 'AvoidRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
+        assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
   /// If any character is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
@@ -370,6 +377,7 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
         AvoidRepeatingAlphabetsConstraint.defaultMaxNumberOfRepetitionsAllowed,
     String violationMessage = 'AvoidRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
+        assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
   /// If any alphabet is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
@@ -377,19 +385,19 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
-    final charactersCountTable = <String, int>{};
+    final alphabetsCountTable = <String, int>{};
 
     for (var i = 0; i < input.length; ++i) {
       if (input[i].hasAlphabets) {
-        if (charactersCountTable.containsKey(input[i])) {
-          charactersCountTable[input[i]] += 1;
+        if (alphabetsCountTable.containsKey(input[i])) {
+          alphabetsCountTable[input[i]] += 1;
         } else {
-          charactersCountTable[input[i]] = 1;
+          alphabetsCountTable[input[i]] = 1;
         }
       }
     }
 
-    for (var characterCount in charactersCountTable.entries) {
+    for (var characterCount in alphabetsCountTable.entries) {
       if (characterCount.value > maxNumberOfRepetitionsAllowed) {
         return false;
       }
@@ -411,24 +419,25 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
         AvoidRepeatingDigitsConstraint.defaultmaxNumberOfRepetitionsAllowed,
     String violationMessage = 'AvoidRepeatingDigits constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
+        assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
-    final charactersCountTable = <String, int>{};
+    final digitsCountTable = <String, int>{};
 
     for (var i = 0; i < input.length; ++i) {
       if (input[i].hasDigits) {
-        if (charactersCountTable.containsKey(input[i])) {
-          charactersCountTable[input[i]] += 1;
+        if (digitsCountTable.containsKey(input[i])) {
+          digitsCountTable[input[i]] += 1;
         } else {
-          charactersCountTable[input[i]] = 1;
+          digitsCountTable[input[i]] = 1;
         }
       }
     }
 
-    for (var characterCount in charactersCountTable.entries) {
+    for (var characterCount in digitsCountTable.entries) {
       if (characterCount.value > maxNumberOfRepetitionsAllowed) {
         return false;
       }
@@ -452,6 +461,7 @@ class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
     String violationMessage =
         'AvoidConsecutivelyRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
+        assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
   /// If any character is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
@@ -488,6 +498,7 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint extends InputConstraint {
     String violationMessage =
         'AvoidConsecutivelyRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
+        assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
   /// If any alphabet is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
@@ -524,6 +535,7 @@ class AvoidConsecutivelyRepeatingDigitsConstraint extends InputConstraint {
     String violationMessage =
         'AvoidConsecutivelyRepeatingDigits constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
+        assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
   /// If any digit is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
@@ -668,6 +680,10 @@ class AvoidEmptinessConstraint extends InputConstraint {
 extension _StringX on String {
   bool get hasAlphabets => RegExp('[A-Za-z]').hasMatch(this);
 
+  bool get hasUpperCaseCharacters => RegExp('[A-Z]').hasMatch(this);
+
+  bool get hasLowerCaseCharacters => RegExp('[a-z]').hasMatch(this);
+
   bool get hasDigits => RegExp('[0-9]').hasMatch(this);
 
   bool get hasAllIdenticalCharacters {
@@ -710,7 +726,8 @@ extension _StringX on String {
     assert(length != 0);
 
     for (var i = 0; i < length; ++i) {
-      if (i + 1 < length && this[i].compareTo(this[i + 1]) != -1) {
+      if (i + 1 < length &&
+          this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
         return false;
       }
     }
@@ -723,8 +740,8 @@ extension _StringX on String {
 
     for (var i = 0; i < length; ++i) {
       if (i + 1 < length &&
-          this[i].hasAllIdenticalCharacters &&
-          this[i].compareTo(this[i + 1]) != -1) {
+          this[i].hasAlphabets &&
+          this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
         return false;
       }
     }
@@ -738,7 +755,7 @@ extension _StringX on String {
     for (var i = 0; i < length; ++i) {
       if (i + 1 < length &&
           this[i].hasDigits &&
-          this[i].compareTo(this[i + 1]) != -1) {
+          this[i].codeUnitAt(0) + 1 != this[i + 1].codeUnitAt(0)) {
         return false;
       }
     }
