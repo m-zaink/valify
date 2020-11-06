@@ -242,20 +242,20 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
     assert(input != null);
 
     if (allNeedToBePresent) {
-      return areAllSpecialCharactersPresentIn(input);
+      return !areAllSpecialCharactersPresentIn(input);
     } else {
-      return areAnySpecialCharactersPresentIn(input);
+      return !areAnySpecialCharactersPresentIn(input);
     }
   }
 
   bool areAllSpecialCharactersPresentIn(String input) {
     for (var specialCharacter in specialCharacters) {
       if (!input.contains(specialCharacter)) {
-        return true;
+        return false;
       }
     }
 
-    return false;
+    return true;
   }
 
   bool areAnySpecialCharactersPresentIn(String input) {
@@ -298,20 +298,20 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
     assert(input != null);
 
     if (allNeedToBePresent) {
-      return areAllSpecialWordsPresentIn(input);
+      return !areAllSpecialWordsPresentIn(input);
     } else {
-      return areAnySpecialWordsPresentIn(input);
+      return !areAnySpecialWordsPresentIn(input);
     }
   }
 
   bool areAllSpecialWordsPresentIn(String input) {
     for (var specialWord in specialWords) {
       if (!input.contains(specialWord)) {
-        return true;
+        return false;
       }
     }
 
-    return false;
+    return true;
   }
 
   bool areAnySpecialWordsPresentIn(String input) {

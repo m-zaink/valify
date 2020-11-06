@@ -40,7 +40,7 @@ To use `valify`, you'd have to add the following dependency under your `pubspec.
 ```yaml
 # pubspec.yaml
 dependencies:
-  valify: ^0.0.2+1
+  valify: ^0.0.2+2
 ```
 
 Let's get started.
