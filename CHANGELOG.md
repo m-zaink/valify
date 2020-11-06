@@ -17,4 +17,8 @@
 
 ## [0.0.2+3] - 6/11/2020
 
-* Hot fix on _StringX extension
+* Hot fix on _StringX extensionA
+
+## [0.0.2+4] - 6/11/2020
+
+* Hot fix on Constraints with max length limitations

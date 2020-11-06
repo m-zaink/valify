@@ -532,9 +532,9 @@ class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + maxNumberOfRepetitionsAllowed <= input.length &&
+      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length &&
           input
-              .substring(i, i + maxNumberOfRepetitionsAllowed)
+              .substring(i, i + 1 + maxNumberOfRepetitionsAllowed)
               .hasAllIdenticalCharacters) {
         return true;
       }
@@ -569,9 +569,9 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint extends InputConstraint {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + maxNumberOfRepetitionsAllowed <= input.length &&
+      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length &&
           input
-              .substring(i, i + maxNumberOfRepetitionsAllowed)
+              .substring(i, i + 1 + maxNumberOfRepetitionsAllowed)
               .hasAllIdenticalAlphabets) {
         return true;
       }
@@ -606,9 +606,9 @@ class AvoidConsecutivelyRepeatingDigitsConstraint extends InputConstraint {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + maxNumberOfRepetitionsAllowed <= input.length &&
+      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length &&
           input
-              .substring(i, i + maxNumberOfRepetitionsAllowed)
+              .substring(i, i + 1 + maxNumberOfRepetitionsAllowed)
               .hasAllIdenticalDigits) {
         return true;
       }
@@ -641,9 +641,9 @@ class AvoidSequentialCharactersConstraint extends InputConstraint {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + maxSequenceLength <= input.length &&
+      if (i + 1 + maxSequenceLength <= input.length &&
           input
-              .substring(i, i + maxSequenceLength)
+              .substring(i, i + 1 + maxSequenceLength)
               .hasOnlyConsecutiveCharacters) {
         return true;
       }
@@ -676,9 +676,9 @@ class AvoidSequentialAlphabetsConstraint extends InputConstraint {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + maxSequenceLength <= input.length &&
+      if (i + 1 + maxSequenceLength <= input.length &&
           input
-              .substring(i, i + maxSequenceLength)
+              .substring(i, i + 1 + maxSequenceLength)
               .hasOnlyConsecutiveAlphabets) {
         return true;
       }
@@ -711,8 +711,8 @@ class AvoidSequentialDigitsConstraint extends InputConstraint {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + maxSequenceLength <= input.length &&
-          input.substring(i, i + maxSequenceLength).hasOnlyConsecutiveDigits) {
+      if (i + 1 + maxSequenceLength <= input.length &&
+          input.substring(i, i + 1 + maxSequenceLength).hasOnlyConsecutiveDigits) {
         return true;
       }
     }
