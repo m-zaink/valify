@@ -181,7 +181,7 @@ class DigitsRequiredConstraint extends InputConstraint {
   })  : assert(minDigitsRequired != null),
         assert(minDigitsRequired >= 0),
         assert(
-            maxDigitsAllowed != null || maxDigitsAllowed >= minDigitsRequired),
+            maxDigitsAllowed == null || maxDigitsAllowed >= minDigitsRequired),
         super(violationMessage);
 
   /// If [input] contains atleast [minDigitsRequired] number of digits

@@ -6,3 +6,7 @@
 ## [0.0.2] - 6/11/2020
 
 * Contains a `allNeedToBePresent` parameter under SpecialCharactersRequiredConstraint for better flexibility
+
+## [0.0.2+1] - 6/11/2020
+
+* Hot fix on DigitsRequiredConstraint's assertion
