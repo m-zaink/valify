@@ -165,7 +165,7 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
     assert(input != null);
 
     final lowerCaseCharactersRegExp =
-        RegExp('[a-z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}');
+        RegExp('[a-z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}}');
 
     return !lowerCaseCharactersRegExp.hasMatch(input);
   }
@@ -233,7 +233,7 @@ class DigitsRequiredConstraint extends InputConstraint {
     assert(input != null);
 
     final digitsRegExp =
-        RegExp('[0-9]{$minDigitsRequired,${maxDigitsAllowed ?? ''}');
+        RegExp('[0-9]{$minDigitsRequired,${maxDigitsAllowed ?? ''}}');
 
     return !digitsRegExp.hasMatch(input);
   }
@@ -280,6 +280,7 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
     this.caseInsensitive = false,
     String violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
+        assert(specialCharacters.isNotEmpty),
         assert(allNeedToBePresent != null),
         assert(caseInsensitive != null),
         assert(
@@ -291,6 +292,7 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
 
   /// If input contains all the characters in the list of [specialCharacters],
   /// then returns `true`.
+  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
@@ -324,23 +326,19 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
   /// Evaluates if at least any one special character from the list of
   /// [specialCharacters] is present in the input.
   bool _areAnySpecialCharactersPresentIn(String input) {
-    var anyOnePresent = false;
-
     for (var specialCharacter in specialCharacters) {
       if (caseInsensitive) {
         if (input.toLowerCase().contains(specialCharacter.toLowerCase())) {
-          anyOnePresent = true;
-          break;
+          return true;
         }
       } else {
         if (input.contains(specialCharacter)) {
-          anyOnePresent = true;
-          break;
+          return true;
         }
       }
     }
 
-    return anyOnePresent;
+    return false;
   }
 }
 
@@ -365,6 +363,7 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
     this.caseInsensitive = false,
     String violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
+        assert(specialWords.isNotEmpty),
         assert(allNeedToBePresent != null),
         assert(caseInsensitive != null),
         assert(specialWords.every((specialWord) => specialWord != null)),
@@ -403,23 +402,19 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
 
   /// Evaluates if at least any one special word from the list of [specialWords] is present in the input.
   bool _areAnySpecialWordsPresentIn(String input) {
-    var anyOnePresent = false;
-
     for (var specialWord in specialWords) {
       if (caseInsensitive) {
         if (input.toLowerCase().contains(specialWord.toLowerCase())) {
-          anyOnePresent = true;
-          break;
+          return true;
         }
       } else {
         if (input.contains(specialWord)) {
-          anyOnePresent = true;
-          break;
+          return true;
         }
       }
     }
 
-    return anyOnePresent;
+    return false;
   }
 }
 
@@ -438,6 +433,7 @@ class BlackListedCharactersConstraint extends InputConstraint {
     this.caseInsensitive = false,
     String violationMessage = 'BlackListedCharacters constraint violated',
   })  : assert(blackListedCharacters != null),
+        assert(blackListedCharacters.isNotEmpty),
         assert(caseInsensitive != null),
         assert(
           blackListedCharacters.every((blackListedCharacter) =>
@@ -482,6 +478,7 @@ class BlackListedWordsConstraint extends InputConstraint {
     this.caseInsensitive = false,
     String violationMessage = 'BlackListedWords constraint violated',
   })  : assert(blackListedWords != null),
+        assert(blackListedWords.isNotEmpty),
         assert(caseInsensitive != null),
         assert(blackListedWords
             .every((blackListedWord) => blackListedWord != null)),
@@ -624,6 +621,7 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
+
     final digitsCountTable = <String, int>{};
 
     for (var i = 0; i < input.length; ++i) {
@@ -636,13 +634,9 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
       }
     }
 
-    for (var characterCount in digitsCountTable.entries) {
-      if (characterCount.value > maxNumberOfRepetitionsAllowed) {
-        return false;
-      }
-    }
-
-    return true;
+    return digitsCountTable.values
+        .where((count) => count > maxNumberOfRepetitionsAllowed)
+        .isNotEmpty;
   }
 }
 
@@ -949,6 +943,10 @@ extension _StringX on String {
   bool get hasAlphabets => RegExp('[A-Za-z]').hasMatch(this);
 
   bool get hasAllAlphabets {
+    if (isEmpty) {
+      return false;
+    }
+
     for (var i = 0; i < length; ++i) {
       if (!this[i].hasAlphabets) {
         return false;
@@ -961,6 +959,10 @@ extension _StringX on String {
   bool get hasUpperCaseCharacters => RegExp('[A-Z]').hasMatch(this);
 
   bool get hasAllUpperCaseCharacters {
+    if (isEmpty) {
+      return false;
+    }
+
     for (var i = 0; i < length; ++i) {
       if (!this[i].hasUpperCaseCharacters) {
         return false;
@@ -973,6 +975,10 @@ extension _StringX on String {
   bool get hasLowerCaseCharacters => RegExp('[a-z]').hasMatch(this);
 
   bool get hasAllLowerCaseCharacters {
+    if (isEmpty) {
+      return false;
+    }
+
     for (var i = 0; i < length; ++i) {
       if (!this[i].hasLowerCaseCharacters) {
         return false;
@@ -985,6 +991,10 @@ extension _StringX on String {
   bool get hasDigits => RegExp('[0-9]').hasMatch(this);
 
   bool get hasAllDigits {
+    if (isEmpty) {
+      return false;
+    }
+
     for (var i = 0; i < length; ++i) {
       if (!this[i].hasDigits) {
         return false;
@@ -995,7 +1005,9 @@ extension _StringX on String {
   }
 
   bool get hasAllIdenticalCharacters {
-    assert(length != 0);
+    if (isEmpty) {
+      return false;
+    }
 
     for (var i = 0; i < length; ++i) {
       if (i + 1 < length && this[i] != this[i + 1]) {
@@ -1007,7 +1019,9 @@ extension _StringX on String {
   }
 
   bool get hasAllIdenticalAlphabets {
-    assert(length != 0);
+    if (isEmpty) {
+      return false;
+    }
 
     if (hasAllAlphabets) {
       for (var i = 0; i < length; ++i) {
@@ -1023,7 +1037,9 @@ extension _StringX on String {
   }
 
   bool get hasAllIdenticalDigits {
-    assert(length != 0);
+    if (isEmpty) {
+      return false;
+    }
 
     if (hasAllDigits) {
       for (var i = 0; i < length; ++i) {
@@ -1039,7 +1055,9 @@ extension _StringX on String {
   }
 
   bool get hasOnlyConsecutiveCharacters {
-    assert(length != 0);
+    if (isEmpty) {
+      return false;
+    }
 
     for (var i = 0; i < length; ++i) {
       if (i + 1 < length &&
@@ -1052,7 +1070,9 @@ extension _StringX on String {
   }
 
   bool get hasOnlyConsecutiveAlphabets {
-    assert(length != 0);
+    if (isEmpty) {
+      return false;
+    }
 
     if (hasAllAlphabets) {
       for (var i = 0; i < length; ++i) {
@@ -1069,7 +1089,9 @@ extension _StringX on String {
   }
 
   bool get hasOnlyConsecutiveDigits {
-    assert(length != 0);
+    if (isEmpty) {
+      return false;
+    }
 
     if (hasAllDigits) {
       for (var i = 0; i < length; ++i) {
