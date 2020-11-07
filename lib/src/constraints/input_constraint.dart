@@ -90,15 +90,24 @@ class UpperCaseCharactersRequiredConstraint extends InputConstraint {
   /// If [input] contains atleast [minCharactersRequired] number of upper case characters
   /// (and contains at most [maxCharactersAllowed] numbers of upper case characters
   /// if [maxCharactersAllowed] is set), then returns `true`.
+  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final upperCaseCharactersRegExp =
-        RegExp('[A-Z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}}');
+    if (maxCharactersAllowed != null) {
+      final isConstraintSatisfied =
+          input.upperCaseCharactersCount >= minCharactersRequired &&
+              input.upperCaseCharactersCount <= maxCharactersAllowed;
 
-    return !upperCaseCharactersRegExp.hasMatch(input);
+      return !isConstraintSatisfied;
+    } else {
+      final isConstraintSatisfied =
+          input.upperCaseCharactersCount >= minCharactersRequired;
+
+      return !isConstraintSatisfied;
+    }
   }
 }
 
@@ -164,10 +173,18 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final lowerCaseCharactersRegExp =
-        RegExp('[a-z]{$minCharactersRequired,${maxCharactersAllowed ?? ''}}');
+    if (maxCharactersAllowed != null) {
+      final isConstraintSatisfied =
+          input.lowerCaseCharactersCount >= minCharactersRequired &&
+              input.lowerCaseCharactersCount <= maxCharactersAllowed;
 
-    return !lowerCaseCharactersRegExp.hasMatch(input);
+      return !isConstraintSatisfied;
+    } else {
+      final isConstraintSatisfied =
+          input.lowerCaseCharactersCount >= minCharactersRequired;
+
+      return !isConstraintSatisfied;
+    }
   }
 }
 
@@ -232,10 +249,16 @@ class DigitsRequiredConstraint extends InputConstraint {
   bool isViolatedOn(String input) {
     assert(input != null);
 
-    final digitsRegExp =
-        RegExp('[0-9]{$minDigitsRequired,${maxDigitsAllowed ?? ''}}');
+    if (maxDigitsAllowed != null) {
+      final isConstraintSatisfied = input.digitsCount >= minDigitsRequired &&
+          input.digitsCount <= maxDigitsAllowed;
 
-    return !digitsRegExp.hasMatch(input);
+      return !isConstraintSatisfied;
+    } else {
+      final isConstraintSatisfied = input.digitsCount >= minDigitsRequired;
+
+      return !isConstraintSatisfied;
+    }
   }
 }
 
@@ -257,7 +280,7 @@ class AvoidDigitsConstraint extends InputConstraint {
 
 /// Constraint on a list of special characters that may be present in the input.
 ///
-/// Special characters doesn't necessarily have to be special as per universal convention.
+/// Special characters don't necessarily have to be special as per universal convention.
 /// They may also include any characters that you think are special according to your
 /// business need. E.g. The letter 'v' may be special for our business need.
 class SpecialCharactersRequiredConstraint extends InputConstraint {
@@ -269,7 +292,7 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
   /// Defaults to `false`.
   final bool allNeedToBePresent;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -292,7 +315,6 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
 
   /// If input contains all the characters in the list of [specialCharacters],
   /// then returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
@@ -352,7 +374,7 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
   /// Defaults to `false`.
   final bool allNeedToBePresent;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -423,7 +445,7 @@ class BlackListedCharactersConstraint extends InputConstraint {
   /// A list of characters that are black listed, i.e. shouldn't be present in the input.
   final List<String> blackListedCharacters;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -468,7 +490,7 @@ class BlackListedWordsConstraint extends InputConstraint {
   /// A list of words that are black listed, i.e. shouldn't be present in the input.
   final List<String> blackListedWords;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -512,7 +534,7 @@ class AvoidRepeatingCharactersConstraint extends InputConstraint {
   /// Maximum number of times any character in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -559,7 +581,7 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
   /// Maximum number of times any alphabet in the input is allowed to be repeated.
   final int maxNumberOfRepetitionsAllowed;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -647,7 +669,7 @@ class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
   /// Maximum number of times any character in the input is allowed to be repeated consecutively.
   final int maxNumberOfRepetitionsAllowed;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -700,7 +722,7 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint extends InputConstraint {
   /// Maximum number of times any alphabet in the input is allowed to be repeated consecutively.
   final int maxNumberOfRepetitionsAllowed;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -791,7 +813,7 @@ class AvoidSequentialCharactersConstraint extends InputConstraint {
   /// Maximum length of the sequence of consecutve characters.
   final int maxSequenceLength;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -841,7 +863,7 @@ class AvoidSequentialAlphabetsConstraint extends InputConstraint {
   /// Maximum length of the sequence of alphabetically consecutve characters.
   final int maxSequenceLength;
 
-  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  /// Indicates whether evaluation should happen by ignoring the case (if set to `true`) or as is (if set to `false`).
   ///
   /// Defaults to `false`.
   final bool caseInsensitive;
@@ -1105,5 +1127,41 @@ extension _StringX on String {
     } else {
       return false;
     }
+  }
+
+  int get upperCaseCharactersCount {
+    var upperCaseCharactersCount = 0;
+
+    for (var i = 0; i < length; ++i) {
+      if (this[i].hasAllUpperCaseCharacters) {
+        ++upperCaseCharactersCount;
+      }
+    }
+
+    return upperCaseCharactersCount;
+  }
+
+  int get lowerCaseCharactersCount {
+    var lowerCaseCharactersCount = 0;
+
+    for (var i = 0; i < length; ++i) {
+      if (this[i].hasAllLowerCaseCharacters) {
+        ++lowerCaseCharactersCount;
+      }
+    }
+
+    return lowerCaseCharactersCount;
+  }
+
+  int get digitsCount {
+    var digitsCount = 0;
+
+    for (var i = 0; i < length; ++i) {
+      if (this[i].hasAllDigits) {
+        ++digitsCount;
+      }
+    }
+
+    return digitsCount;
   }
 }
