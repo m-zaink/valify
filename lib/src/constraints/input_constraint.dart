@@ -13,8 +13,8 @@ abstract class InputConstraint {
 
   /// Verifies if the constraint is violated for the given [input].
   ///
-  /// If input violates the constraints, returns [true].
-  /// Otherwise returns [false].
+  /// If input violates the constraints, returns `true`.
+  /// Otherwise returns `false`.
   bool isViolatedOn(String input);
 }
 
@@ -32,8 +32,8 @@ class MaximumLengthLimitingConstraint extends InputConstraint {
         assert(maxLength >= 0),
         super(violationMessage);
 
-  /// If [input.length] > [maxLength], returns [true].
-  /// Otherwise returns [false].
+  /// If [input.length] > [maxLength], returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -56,8 +56,8 @@ class MinimumLengthRequiredConstraint extends InputConstraint {
         assert(minLength >= 0),
         super(violationMessage);
 
-  /// If [input.length] < [minLength], then returns [true].
-  /// Otherwise returns [false].
+  /// If [input.length] < [minLength], then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -89,8 +89,8 @@ class UpperCaseCharactersRequiredConstraint extends InputConstraint {
 
   /// If [input] contains atleast [minCharactersRequired] number of upper case characters
   /// (and contains at most [maxCharactersAllowed] numbers of upper case characters
-  /// if [maxCharactersAllowed] is set), then returns [true].
-  /// Otherwise returns [false].
+  /// if [maxCharactersAllowed] is set), then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -102,14 +102,31 @@ class UpperCaseCharactersRequiredConstraint extends InputConstraint {
   }
 }
 
+/// Constraint to ensure that every character in the input is upper cased.
+class AllUpperCaseCharactersConstraint extends InputConstraint {
+  AllUpperCaseCharactersConstraint({
+    String violationMessage = 'AllUpperCaseCharacters constraint violated',
+  }) : super(violationMessage);
+
+  /// If [input] constains any other characters other than only upper case characters, then returns `true`.
+  ///
+  /// Otherwise returns `false`.
+  @override
+  bool isViolatedOn(String input) {
+    assert(input != null);
+
+    return !input.hasAllUpperCaseCharacters;
+  }
+}
+
 /// Constraint to disallow any upper case characters in the input.
 class AvoidUpperCaseCharactersConstraint extends InputConstraint {
   AvoidUpperCaseCharactersConstraint({
     String violationMessage = 'AvoidUpperCaseCharacters constraint violated',
   }) : super(violationMessage);
 
-  /// If input contains even one upper case character, then returns [true].
-  /// Otherwise returns [false].
+  /// If input contains even one upper case character, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -141,8 +158,8 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
 
   /// If [input] contains atleast [minCharactersRequired] number of lower case characters
   /// (and contains at most [maxCharactersAllowed] numbers of lower case characters
-  /// if [maxCharactersAllowed] is set), then returns [true].
-  /// Otherwise returns [false].
+  /// if [maxCharactersAllowed] is set), then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -154,14 +171,31 @@ class LowerCaseCharactersRequiredConstraint extends InputConstraint {
   }
 }
 
+/// Constraint to ensure that every character in the input is lower cased.
+class AllLowerCaseCharactersConstraint extends InputConstraint {
+  AllLowerCaseCharactersConstraint({
+    String violationMessage = 'AllLowerCaseCharacters constraint violated',
+  }) : super(violationMessage);
+
+  /// If [input] constains any other characters other than only lower case characters, then returns `true`.
+  ///
+  /// Otherwise returns `false`.
+  @override
+  bool isViolatedOn(String input) {
+    assert(input != null);
+
+    return !input.hasAllLowerCaseCharacters;
+  }
+}
+
 /// Constraint to disallow any lower case characters in the input.
 class AvoidLowerCaseCharactersConstraint extends InputConstraint {
   AvoidLowerCaseCharactersConstraint({
     String violationMessage = 'AvoidLowerCaseCharacters constraint violated',
   }) : super(violationMessage);
 
-  /// If input contains even one lower case character, then returns [true].
-  /// Otherwise returns [false].
+  /// If input contains even one lower case character, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -192,8 +226,8 @@ class DigitsRequiredConstraint extends InputConstraint {
 
   /// If [input] contains atleast [minDigitsRequired] number of digits
   /// (and contains at most [maxDigitsAllowed] numbers of digits
-  /// if [maxDigitsAllowed] is set), then returns [true].
-  /// Otherwise returns [false].
+  /// if [maxDigitsAllowed] is set), then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -211,8 +245,8 @@ class AvoidDigitsConstraint extends InputConstraint {
     String violationMessage = 'AvoidDigits constraint violated',
   }) : super(violationMessage);
 
-  /// If input contains even one digit, then returns [true].
-  /// Otherwise returns [false].
+  /// If input contains even one digit, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -222,27 +256,32 @@ class AvoidDigitsConstraint extends InputConstraint {
 }
 
 /// Constraint on a list of special characters that may be present in the input.
+///
+/// Special characters doesn't necessarily have to be special as per universal convention.
+/// They may also include any characters that you think are special according to your
+/// business need. E.g. The letter 'v' may be special for our business need.
 class SpecialCharactersRequiredConstraint extends InputConstraint {
   /// A list of characters that may be present in the input.
   final List<String> specialCharacters;
 
   /// Indicates whether every character in the list need to be present in the input.
   ///
-  /// Defaults to [false].
+  /// Defaults to `false`.
   final bool allNeedToBePresent;
 
   /// Indicates whether evaluation should happen as is or by ignoring the case.
   ///
-  /// Defaults to [false].
-  final bool caseSensitive;
+  /// Defaults to `false`.
+  final bool caseInsensitive;
 
   SpecialCharactersRequiredConstraint({
     @required this.specialCharacters,
     this.allNeedToBePresent = false,
-    this.caseSensitive = false,
+    this.caseInsensitive = false,
     String violationMessage = 'SpecialCharactersRequired constraint violated',
   })  : assert(specialCharacters != null),
         assert(allNeedToBePresent != null),
+        assert(caseInsensitive != null),
         assert(
           specialCharacters.every((specialCharacter) =>
               specialCharacter != null && specialCharacter.length == 1),
@@ -250,22 +289,25 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
         ),
         super(violationMessage);
 
-  /// If input contains all the characters in the list of [specialCharacters], then returns [true].
-  /// Otherwise returns [false].
+  /// If input contains all the characters in the list of [specialCharacters],
+  /// then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
 
     if (allNeedToBePresent) {
-      return !areAllSpecialCharactersPresentIn(input);
+      return !_areAllSpecialCharactersPresentIn(input);
     } else {
-      return !areAnySpecialCharactersPresentIn(input);
+      return !_areAnySpecialCharactersPresentIn(input);
     }
   }
 
-  bool areAllSpecialCharactersPresentIn(String input) {
+  /// Evaluates if every special character in the list of [specialCharacters]
+  ///  is present in the input.
+  bool _areAllSpecialCharactersPresentIn(String input) {
     for (var specialCharacter in specialCharacters) {
-      if (caseSensitive) {
+      if (caseInsensitive) {
         if (!input.toLowerCase().contains(specialCharacter.toLowerCase())) {
           return false;
         }
@@ -279,11 +321,13 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
     return true;
   }
 
-  bool areAnySpecialCharactersPresentIn(String input) {
+  /// Evaluates if at least any one special character from the list of
+  /// [specialCharacters] is present in the input.
+  bool _areAnySpecialCharactersPresentIn(String input) {
     var anyOnePresent = false;
 
     for (var specialCharacter in specialCharacters) {
-      if (caseSensitive) {
+      if (caseInsensitive) {
         if (input.toLowerCase().contains(specialCharacter.toLowerCase())) {
           anyOnePresent = true;
           break;
@@ -300,47 +344,50 @@ class SpecialCharactersRequiredConstraint extends InputConstraint {
   }
 }
 
-/// Constraint on a list of special word that may be present in the input.
+/// Constraint on a list of special words that may be present in the input.
 class SpecialWordsRequiredConstraint extends InputConstraint {
   /// A list of words that may be present in the input.
   final List<String> specialWords;
 
   /// Indicates whether every word in the list need to be present in the input.
   ///
-  /// Defaults to [false].
+  /// Defaults to `false`.
   final bool allNeedToBePresent;
 
   /// Indicates whether evaluation should happen as is or by ignoring the case.
   ///
-  /// Defaults to [false].
-  final bool caseSensitive;
+  /// Defaults to `false`.
+  final bool caseInsensitive;
 
   SpecialWordsRequiredConstraint({
     @required this.specialWords,
     this.allNeedToBePresent = false,
-    this.caseSensitive = false,
+    this.caseInsensitive = false,
     String violationMessage = 'SpecialWordsRequired constraint violated',
   })  : assert(specialWords != null),
         assert(allNeedToBePresent != null),
+        assert(caseInsensitive != null),
         assert(specialWords.every((specialWord) => specialWord != null)),
         super(violationMessage);
 
-  /// If input contains all the word in the list of [specialWords], then returns [true].
-  /// Otherwise returns [false].
+  /// If input contains all the word in the list of [specialWords], then returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
 
     if (allNeedToBePresent) {
-      return !areAllSpecialWordsPresentIn(input);
+      return !_areAllSpecialWordsPresentIn(input);
     } else {
-      return !areAnySpecialWordsPresentIn(input);
+      return !_areAnySpecialWordsPresentIn(input);
     }
   }
 
-  bool areAllSpecialWordsPresentIn(String input) {
+  /// Evaluates if every special word in the list of [specialWords] is present in the input.
+  bool _areAllSpecialWordsPresentIn(String input) {
     for (var specialWord in specialWords) {
-      if (caseSensitive) {
+      if (caseInsensitive) {
         if (!input.toLowerCase().contains(specialWord.toLowerCase())) {
           return false;
         }
@@ -354,11 +401,12 @@ class SpecialWordsRequiredConstraint extends InputConstraint {
     return true;
   }
 
-  bool areAnySpecialWordsPresentIn(String input) {
+  /// Evaluates if at least any one special word from the list of [specialWords] is present in the input.
+  bool _areAnySpecialWordsPresentIn(String input) {
     var anyOnePresent = false;
 
     for (var specialWord in specialWords) {
-      if (caseSensitive) {
+      if (caseInsensitive) {
         if (input.toLowerCase().contains(specialWord.toLowerCase())) {
           anyOnePresent = true;
           break;
@@ -382,14 +430,15 @@ class BlackListedCharactersConstraint extends InputConstraint {
 
   /// Indicates whether evaluation should happen as is or by ignoring the case.
   ///
-  /// Defaults to [false].
-  final bool caseSensitive;
+  /// Defaults to `false`.
+  final bool caseInsensitive;
 
   BlackListedCharactersConstraint({
     @required this.blackListedCharacters,
-    this.caseSensitive = false,
+    this.caseInsensitive = false,
     String violationMessage = 'BlackListedCharacters constraint violated',
   })  : assert(blackListedCharacters != null),
+        assert(caseInsensitive != null),
         assert(
           blackListedCharacters.every((blackListedCharacter) =>
               blackListedCharacter != null && blackListedCharacter.length == 1),
@@ -397,12 +446,13 @@ class BlackListedCharactersConstraint extends InputConstraint {
         ),
         super(violationMessage);
 
-  /// If any character in the list of [blackListedCharacters] is present in the input, returns [true].
-  /// Otherwise returns [false].
+  /// If any character in the list of [blackListedCharacters] is present in the input, returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     for (var blackListedCharacter in blackListedCharacters) {
-      if (caseSensitive) {
+      if (caseInsensitive) {
         if (input.toLowerCase().contains(blackListedCharacter.toLowerCase())) {
           return true;
         }
@@ -424,24 +474,26 @@ class BlackListedWordsConstraint extends InputConstraint {
 
   /// Indicates whether evaluation should happen as is or by ignoring the case.
   ///
-  /// Defaults to [false].
-  final bool caseSensitive;
+  /// Defaults to `false`.
+  final bool caseInsensitive;
 
   BlackListedWordsConstraint({
     @required this.blackListedWords,
-    this.caseSensitive = false,
+    this.caseInsensitive = false,
     String violationMessage = 'BlackListedWords constraint violated',
   })  : assert(blackListedWords != null),
+        assert(caseInsensitive != null),
         assert(blackListedWords
             .every((blackListedWord) => blackListedWord != null)),
         super(violationMessage);
 
-  /// If any word in the list of [blackListedCharacters] is present in the input, returns [true].
-  /// Otherwise returns [false].
+  /// If any word in the list of [blackListedCharacters] is present in the input, returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     for (var blackListedWord in blackListedWords) {
-      if (caseSensitive) {
+      if (caseInsensitive) {
         if (input.toLowerCase().contains(blackListedWord.toLowerCase())) {
           return true;
         }
@@ -465,20 +517,20 @@ class AvoidRepeatingCharactersConstraint extends InputConstraint {
 
   /// Indicates whether evaluation should happen as is or by ignoring the case.
   ///
-  /// Defaults to [false].
-  final bool caseSensitive;
+  /// Defaults to `false`.
+  final bool caseInsensitive;
 
   AvoidRepeatingCharactersConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingCharactersConstraint.defaultMaxNumberOfRepetitionsAllowed,
-    this.caseSensitive = false,
+    this.caseInsensitive = false,
     String violationMessage = 'AvoidRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
-  /// If any character is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
-  /// Otherwise returns [false].
+  /// If any character is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -486,7 +538,7 @@ class AvoidRepeatingCharactersConstraint extends InputConstraint {
 
     for (var i = 0; i < input.length; ++i) {
       final characterAtCurrentIndex =
-          caseSensitive ? input[i].toLowerCase() : input[i];
+          caseInsensitive ? input[i].toLowerCase() : input[i];
 
       if (charactersCountTable.containsKey(characterAtCurrentIndex)) {
         charactersCountTable[characterAtCurrentIndex] += 1;
@@ -512,20 +564,21 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
 
   /// Indicates whether evaluation should happen as is or by ignoring the case.
   ///
-  /// Defaults to [false].
-  final bool caseSensitive;
+  /// Defaults to `false`.
+  final bool caseInsensitive;
 
   AvoidRepeatingAlphabetsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidRepeatingAlphabetsConstraint.defaultMaxNumberOfRepetitionsAllowed,
-    this.caseSensitive = false,
+    this.caseInsensitive = false,
     String violationMessage = 'AvoidRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(maxNumberOfRepetitionsAllowed >= 0),
+        assert(caseInsensitive != null),
         super(violationMessage);
 
-  /// If any alphabet is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns [true].
-  /// Otherwise returns [false].
+  /// If any alphabet is repeated more then [maxNumberOfRepetitionsAllowed] times, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -534,7 +587,7 @@ class AvoidRepeatingAlphabetsConstraint extends InputConstraint {
     for (var i = 0; i < input.length; ++i) {
       if (input[i].hasAlphabets) {
         final alphabetAtCurrentIndex =
-            caseSensitive ? input[i].toLowerCase() : input[i];
+            caseInsensitive ? input[i].toLowerCase() : input[i];
 
         if (alphabetsCountTable.containsKey(alphabetAtCurrentIndex)) {
           alphabetsCountTable[alphabetAtCurrentIndex] += 1;
@@ -565,6 +618,9 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
         assert(maxNumberOfRepetitionsAllowed >= 0),
         super(violationMessage);
 
+  /// If input contains any character that is repeated more than [maxNumberOfRepeatitionAllowed] times, returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -597,29 +653,45 @@ class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
   /// Maximum number of times any character in the input is allowed to be repeated consecutively.
   final int maxNumberOfRepetitionsAllowed;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to `false`.
+  final bool caseInsensitive;
+
   AvoidConsecutivelyRepeatingCharactersConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingCharactersConstraint
             .defaultMaxNumberOfRepetitionsAllowed,
+    this.caseInsensitive = false,
     String violationMessage =
         'AvoidConsecutivelyRepeatingCharacters constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(maxNumberOfRepetitionsAllowed >= 0),
+        assert(caseInsensitive != null),
         super(violationMessage);
 
   /// If any character is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
-  /// then returns [true].
-  /// Otherwise returns [false].
+  /// then returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length &&
-          input
-              .substring(i, i + 1 + maxNumberOfRepetitionsAllowed)
-              .hasAllIdenticalCharacters) {
-        return true;
+      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length) {
+        final currentSubString =
+            input.substring(i, i + 1 + maxNumberOfRepetitionsAllowed);
+
+        if (caseInsensitive) {
+          if (currentSubString.toLowerCase().hasAllIdenticalCharacters) {
+            return true;
+          }
+        } else {
+          if (currentSubString.hasAllIdenticalCharacters) {
+            return true;
+          }
+        }
       }
     }
 
@@ -634,29 +706,45 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint extends InputConstraint {
   /// Maximum number of times any alphabet in the input is allowed to be repeated consecutively.
   final int maxNumberOfRepetitionsAllowed;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to `false`.
+  final bool caseInsensitive;
+
   AvoidConsecutivelyRepeatingAlphabetsConstraint({
     this.maxNumberOfRepetitionsAllowed =
         AvoidConsecutivelyRepeatingDigitsConstraint
             .defaultmaxNumberOfRepetitionsAllowed,
+    this.caseInsensitive = false,
     String violationMessage =
         'AvoidConsecutivelyRepeatingAlphabets constraint violated',
   })  : assert(maxNumberOfRepetitionsAllowed != null),
         assert(maxNumberOfRepetitionsAllowed >= 0),
+        assert(caseInsensitive != null),
         super(violationMessage);
 
   /// If any alphabet is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
-  /// then returns [true].
-  /// Otherwise returns [false].
+  /// then returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length &&
-          input
-              .substring(i, i + 1 + maxNumberOfRepetitionsAllowed)
-              .hasAllIdenticalAlphabets) {
-        return true;
+      if (i + 1 + maxNumberOfRepetitionsAllowed <= input.length) {
+        final currentSubString =
+            input.substring(i, i + 1 + maxNumberOfRepetitionsAllowed);
+
+        if (caseInsensitive) {
+          if (currentSubString.toLowerCase().hasAllIdenticalAlphabets) {
+            return true;
+          }
+        } else {
+          if (currentSubString.hasAllIdenticalAlphabets) {
+            return true;
+          }
+        }
       }
     }
 
@@ -682,8 +770,9 @@ class AvoidConsecutivelyRepeatingDigitsConstraint extends InputConstraint {
         super(violationMessage);
 
   /// If any digit is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
-  /// then returns [true].
-  /// Otherwise returns [false].
+  /// then returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -708,27 +797,42 @@ class AvoidSequentialCharactersConstraint extends InputConstraint {
   /// Maximum length of the sequence of consecutve characters.
   final int maxSequenceLength;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to `false`.
+  final bool caseInsensitive;
+
   AvoidSequentialCharactersConstraint({
     this.maxSequenceLength =
         AvoidSequentialCharactersConstraint.defaultMaxSequenceLength,
+    this.caseInsensitive = false,
     String violationMessage = 'AvoidSequentialCharacters constraint violated',
   })  : assert(maxSequenceLength != null),
         assert(maxSequenceLength > 1),
+        assert(caseInsensitive != null),
         super(violationMessage);
 
   /// If any sequenc with alphabetically consecutive characters is found
-  /// with length > [mexSequenceLength], returns [true].
-  /// Otherwise returns [false].
+  /// with length > [mexSequenceLength], returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
 
     for (var i = 0; i < input.length; ++i) {
-      if (i + 1 + maxSequenceLength <= input.length &&
-          input
-              .substring(i, i + 1 + maxSequenceLength)
-              .hasOnlyConsecutiveCharacters) {
-        return true;
+      if (i + 1 + maxSequenceLength <= input.length) {
+        final currentSubString = input.substring(i, i + 1 + maxSequenceLength);
+
+        if (caseInsensitive) {
+          if (currentSubString.toLowerCase().hasOnlyConsecutiveCharacters) {
+            return true;
+          }
+        } else {
+          if (currentSubString.hasOnlyConsecutiveCharacters) {
+            return true;
+          }
+        }
       }
     }
 
@@ -743,17 +847,25 @@ class AvoidSequentialAlphabetsConstraint extends InputConstraint {
   /// Maximum length of the sequence of alphabetically consecutve characters.
   final int maxSequenceLength;
 
+  /// Indicates whether evaluation should happen as is or by ignoring the case.
+  ///
+  /// Defaults to `false`.
+  final bool caseInsensitive;
+
   AvoidSequentialAlphabetsConstraint({
     this.maxSequenceLength =
         AvoidSequentialAlphabetsConstraint.defaultMaxSequenceLength,
+    this.caseInsensitive = false,
     String violationMessage = 'AvoidSequentialAlphabets constraint violated',
   })  : assert(maxSequenceLength != null),
         assert(maxSequenceLength > 1),
+        assert(caseInsensitive != null),
         super(violationMessage);
 
   /// If any sequenc with alphabetically consecutive characters is found
-  /// with length > [mexSequenceLength], returns [true].
-  /// Otherwise returns [false].
+  /// with length > [mexSequenceLength], returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -763,7 +875,17 @@ class AvoidSequentialAlphabetsConstraint extends InputConstraint {
           input
               .substring(i, i + 1 + maxSequenceLength)
               .hasOnlyConsecutiveAlphabets) {
-        return true;
+        final currentSubString = input.substring(i, i + 1 + maxSequenceLength);
+
+        if (caseInsensitive) {
+          if (currentSubString.toLowerCase().hasOnlyConsecutiveAlphabets) {
+            return true;
+          }
+        } else {
+          if (currentSubString.hasOnlyConsecutiveAlphabets) {
+            return true;
+          }
+        }
       }
     }
 
@@ -787,8 +909,9 @@ class AvoidSequentialDigitsConstraint extends InputConstraint {
         super(violationMessage);
 
   /// If any sequenc with numerically consecutive digits is found
-  /// with length > [mexSequenceLength], returns [true].
-  /// Otherwise returns [false].
+  /// with length > [mexSequenceLength], returns `true`.
+  ///
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -812,8 +935,8 @@ class AvoidEmptinessConstraint extends InputConstraint {
     String violationMessage = 'AvoidEmptiness constraint violated',
   }) : super(violationMessage);
 
-  /// If the input is empty, then returns [true].
-  /// Otherwise returns [false].
+  /// If the input is empty, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
