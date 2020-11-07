@@ -638,7 +638,6 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
         super(violationMessage);
 
   /// If input contains any character that is repeated more than [maxNumberOfRepeatitionAllowed] times, returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
@@ -662,6 +661,7 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
   }
 }
 
+// TODO: Test from here
 /// Constraint on limiting the number of a times any character in the input to repeat consecutively.
 class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
   static const int defaultMaxNumberOfRepetitionsAllowed = 2;
@@ -688,7 +688,6 @@ class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
 
   /// If any character is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
   /// then returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
