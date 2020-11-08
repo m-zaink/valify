@@ -40,7 +40,7 @@ void main() {
     violationMessage: 'Password should contain at least one special character',
   );
 
-  /// Oh! BTW, let's also add a constraint to password shouldn't be longer than 64
+  /// Oh! BTW, let's also add a constraint that password shouldn't be longer than 64
   /// characters
   final maxLengthLimitingConstraint =
       MaximumLengthLimitingConstraint(maxLength: 64, violationMessage: '');
