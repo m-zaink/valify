@@ -22,3 +22,8 @@
 ## [0.0.2+4] - 6/11/2020
 
 * Hot fix on Constraints with max length limitations
+
+## [0.0.3] - 8/11/2020
+
+* Add case insensitivity feature to constraints where it makes sense.
+* Fix bugs on some constraints.

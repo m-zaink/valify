@@ -40,7 +40,7 @@ To use `valify`, you'd have to add the following dependency under your `pubspec.
 ```yaml
 # pubspec.yaml
 dependencies:
-  valify: ^0.0.2+4
+  valify: ^0.0.3
 ```
 
 Let's get started.
@@ -89,10 +89,23 @@ if (violatedConstraints.isEmpty) {
 * You may also just fetch the first violation that occurred on the given input by using `firstConstraintViolatedOn()` method of the `Valifier`.
 * Or you may even not go that far as you can easily toget to know if any constraints were violated at all by using `areAllConstraintsSatisfiedOn()` method of the `Valifier`.
 
+
 > ___ NOTE ___
+>
 > You can optionally pass-in a `violationMessage` parameter to any of your constraints. 
 > This `violationMessage` can be useful later on as shown above [`print(violatedConstraint.violationMessage)`]
 
+> For more details, you may look at [example](https://pub.dev/packages/valify/example) file of this package.
 ----
 #### Want to contribute?
 I'll be more than happy to receive your `PR` at [github.com/m-zaink/valify](https://github.com/m-zaink/valify.git).
+
+#### Where do we need the most contribution?
+* Write unit tests. I need help in increasing the code coverage of test cases. The more, the better.
+For contributing on test cases front, you may follow this [article](https://medium.com/flutter-community/unit-testing-business-components-in-flutter-apps-27c5d35e4102) on unit testing dart code.
+
+* Improve documentation.
+
+* Create more constraint classes or write generic pipelines such as those for passwords, emails, etc.
+
+* You can just leave a like at this repo. 👍
