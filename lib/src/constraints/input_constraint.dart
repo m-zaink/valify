@@ -661,7 +661,6 @@ class AvoidRepeatingDigitsConstraint extends InputConstraint {
   }
 }
 
-// TODO: Test from here
 /// Constraint on limiting the number of a times any character in the input to repeat consecutively.
 class AvoidConsecutivelyRepeatingCharactersConstraint extends InputConstraint {
   static const int defaultMaxNumberOfRepetitionsAllowed = 2;
@@ -740,7 +739,6 @@ class AvoidConsecutivelyRepeatingAlphabetsConstraint extends InputConstraint {
 
   /// If any alphabet is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
   /// then returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
@@ -786,7 +784,6 @@ class AvoidConsecutivelyRepeatingDigitsConstraint extends InputConstraint {
 
   /// If any digit is repeated consecutively more then [maxNumberOfRepetitionsAllowed] times,
   /// then returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
@@ -829,7 +826,6 @@ class AvoidSequentialCharactersConstraint extends InputConstraint {
 
   /// If any sequenc with alphabetically consecutive characters is found
   /// with length > [mexSequenceLength], returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
@@ -879,7 +875,6 @@ class AvoidSequentialAlphabetsConstraint extends InputConstraint {
 
   /// If any sequenc with alphabetically consecutive characters is found
   /// with length > [mexSequenceLength], returns `true`.
-  ///
   /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
