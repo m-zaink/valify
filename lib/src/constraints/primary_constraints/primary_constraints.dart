@@ -247,6 +247,20 @@ class DigitsRequiredConstraint extends InputConstraint {
   }
 }
 
+/// Constraint to ensure that input contains of only digits.
+class AllDigitsConstraint extends InputConstraint {
+  AllDigitsConstraint({
+    String violationMessage = 'AllDigits constraint violated',
+  }) : super(violationMessage);
+
+  @override
+  bool isViolatedOn(String input) {
+    assert(input != null);
+
+    return !input.hasAllDigits;
+  }
+}
+
 /// Constraint to disallow any digits in the input.
 class AvoidDigitsConstraint extends InputConstraint {
   AvoidDigitsConstraint({
