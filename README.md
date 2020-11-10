@@ -77,7 +77,7 @@ final violatedConstraints = valifier.allConstraintsViolatedOn(userInput);
 
 if (violatedConstraints.isEmpty) {
     // User didn't violate any constraints.
-    print('Awesome user. You did violate any constraints.');
+    print('Awesome user. You did\'t violate any constraints.');
 } else {
     // Some constraints were violated.
     print('Uh oh! Some constraints were violated.');
@@ -87,7 +87,7 @@ if (violatedConstraints.isEmpty) {
 }
 ```
 * You may also just fetch the first violation that occurred on the given input by using `firstConstraintViolatedOn()` method of the `Valifier`.
-* Or you may even not go that far as you can easily toget to know if any constraints were violated at all by using `areAllConstraintsSatisfiedOn()` method of the `Valifier`.
+* Or you may not even go that far as you can easily get to know if any constraints were violated at all by using `areAllConstraintsSatisfiedOn()` method of the `Valifier`.
 
 
 > ___ NOTE ___
