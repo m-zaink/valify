@@ -88,3 +88,34 @@ class ValidCardExpiryDateConstraint extends InputConstraint {
     return false;
   }
 }
+
+enum IssuerIdentificationNumber {
+  unknown,
+  americanExpress,
+  dinnersClubInternational,
+  dinnersClubUsaAndCanada,
+  discoverCard,
+  ukrCard,
+  ruPay,
+  interPayment,
+  instaPayment,
+  jcb,
+  maestroUK,
+  maestro,
+  dankort,
+  mir,
+  npsPridnestrovie,
+  masterCard,
+  troy,
+  visa,
+  visaElectron,
+  uatp,
+  verve,
+  lankaPay,
+}
+
+final regExpBasedOnIin = <IssuerIdentificationNumber, String>{
+  IssuerIdentificationNumber.americanExpress: '^3[47]',
+  IssuerIdentificationNumber.dinnersClubInternational: '^36',
+  IssuerIdentificationNumber.dinnersClubUsaAndCanada: '^54',
+};
