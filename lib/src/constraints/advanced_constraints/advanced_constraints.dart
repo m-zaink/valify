@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import 'package:valify/src/constraints/input_constraint.dart';
 import 'package:valify/src/utilities/string_utilities.dart';
 
@@ -49,5 +51,40 @@ class ValidCardNumberConstraint extends InputConstraint {
     } else {
       return true;
     }
+  }
+}
+
+/// Constraint to ensure that the card hasn't expired.
+///
+/// [input] to [isVioldatedOn] expects it to be of form 'MM/YY' or 'MM/YYYY'.
+class ValidCardExpiryDateConstraint extends InputConstraint {
+  ValidCardExpiryDateConstraint({
+    String violationMessage = 'ValidCardExpiryDate constraint violated',
+  }) : super(violationMessage);
+
+  @override
+  bool isViolatedOn(String input) {
+    final monthAndYear = input.extraCondensed.split('/');
+
+    if (monthAndYear.length != 2) {
+      return true;
+    }
+
+    final month = monthAndYear[0];
+    final year = monthAndYear[1];
+
+    if (!month.hasAllDigits || !year.hasAllDigits) {
+      return true;
+    }
+
+    if ((int.parse(year) % 100) < (DateTime.now().year % 100)) {
+      return true;
+    }
+
+    if (int.parse(month) < DateTime.now().month) {
+      return true;
+    }
+
+    return false;
   }
 }
