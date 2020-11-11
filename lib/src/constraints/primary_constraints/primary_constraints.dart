@@ -954,11 +954,14 @@ class AvoidEmptinessConstraint extends InputConstraint {
   }
 }
 
+/// Constraint to enforce that at least one emoji is required.
 class EmojiiesRequiredConstraint extends InputConstraint {
   EmojiiesRequiredConstraint({
     String violationMessage = 'EmojiesRequired constraint violated',
   }) : super(violationMessage);
 
+  /// If the input doesn't contain even a single emoji, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
@@ -967,11 +970,14 @@ class EmojiiesRequiredConstraint extends InputConstraint {
   }
 }
 
+/// Constraint to avoid emoji in the input.
 class AvoidEmojiesConstraint extends InputConstraint {
   AvoidEmojiesConstraint({
     String violationMessage = 'AvoidEmojies constraint violated',
   }) : super(violationMessage);
 
+  /// If the input contains even one emoji, then returns `true`.
+  /// Otherwise returns `false`.
   @override
   bool isViolatedOn(String input) {
     assert(input != null);
