@@ -953,3 +953,16 @@ class AvoidEmptinessConstraint extends InputConstraint {
     return input.isEmpty;
   }
 }
+
+class AvoidEmojiesConstraint extends InputConstraint {
+  AvoidEmojiesConstraint({
+    String violationMessage = 'AvoidEmojies constraint violated',
+  }) : super(violationMessage);
+
+  @override
+  bool isViolatedOn(String input) {
+    assert(input != null);
+
+    return input.hasEmojies;
+  }
+}
