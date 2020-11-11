@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:valify/src/constraints/input_constraint.dart';
+import 'package:valify/src/constraints/primary_constraints/primary_constraints.dart';
 
 void testUpperCaseCharactersRequiredConstraint() {
   group(
