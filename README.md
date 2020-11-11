@@ -5,6 +5,7 @@
 <img src="https://gitlab.com/uploads/-/system/personal_snippet/2037052/ff80ba4c494c8887c0f4d18fc60b4c6d/Valify-Logo.png" width="250" height="250"/>
 </center>
 </div>
+
 🔥 Validate your user inputs like never before with highly intuitive constraints pipeline.
 
 ✨ Easy to use pre-defined constraints covering most of your everyday validation needs.
@@ -40,7 +41,7 @@ To use `valify`, you'd have to add the following dependency under your `pubspec.
 ```yaml
 # pubspec.yaml
 dependencies:
-  valify: ^0.0.3
+  valify: ^0.0.4
 ```
 
 Let's get started.

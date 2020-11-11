@@ -27,3 +27,8 @@
 
 * Add case insensitivity feature to constraints where it makes sense.
 * Fix bugs on some constraints.
+
+## [0.0.4] - 11/11/2020
+
+* Add constraint for validating credit/debit card numbers.
+* Add constraint for emojies.
