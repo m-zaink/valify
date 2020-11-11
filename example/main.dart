@@ -37,6 +37,11 @@ void main() {
     violationMessage: 'Password should contain at least one digit',
   );
 
+  /// Usually passwords don't contain emojies. So let's put a constraint for that too?
+  final avoidEmojiesConstraint = AvoidEmojiesConstraint(
+    violationMessage: 'Password should not contain emojies',
+  );
+
   /// And lastly, let's specify that the password should contain at least one
   /// special character.
   final shouldContainSpecialCharactersConstraint =
@@ -61,6 +66,7 @@ void main() {
       shouldContainUpperCaseCharactersConstraint,
       shouldContainLowerCaseCharactersConstraint,
       shouldContainAtLeastOneDigit,
+      avoidEmojiesConstraint,
       shouldContainSpecialCharactersConstraint,
       maxLengthLimitingConstraint,
     ],
@@ -101,6 +107,9 @@ void main() {
       ),
       DigitsRequiredConstraint(
         violationMessage: 'Password should contain at least one digit',
+      ),
+      AvoidEmojiesConstraint(
+        violationMessage: 'Password should not contain emojies',
       ),
       SpecialCharactersRequiredConstraint(
         specialCharacters: '?=.*[@!#\$%&’*+-/=?^_`{|}~.]<>'.split(''),
