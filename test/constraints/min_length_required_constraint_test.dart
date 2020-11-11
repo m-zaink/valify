@@ -1,6 +1,10 @@
 import 'package:test/test.dart';
 import 'package:valify/src/constraints/primary_constraints/primary_constraints.dart';
 
+void main() {
+  testMinLengthRequiredConstraint();
+}
+
 void testMinLengthRequiredConstraint() {
   group(
     'tests for MinLengthLimitingConstraint',
@@ -13,17 +17,20 @@ void testMinLengthRequiredConstraint() {
           final doubleMinLength = minLength * 2;
           final oneMoreThanMinLength = minLength + 1;
 
-          final inputAtMinLength = 't' * MinimumLengthRequiredConstraint.defaultMinLength;
+          final inputAtMinLength =
+              't' * MinimumLengthRequiredConstraint.defaultMinLength;
           final inputAtDoubleMinLength = 't' * doubleMinLength;
           final inputAtOneMoreThenMinLength = 't' * oneMoreThanMinLength;
 
           final maxLengthLimitingConstraint = MaximumLengthLimitingConstraint();
 
           // act
-          final isViolatedAtMinLength = maxLengthLimitingConstraint.isViolatedOn(inputAtMinLength);
-          final isViolatedAtDoubleMinLength = maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleMinLength);
-          final isViolatedAtOneMoreThanMinLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneMoreThenMinLength);
+          final isViolatedAtMinLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtMinLength);
+          final isViolatedAtDoubleMinLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleMinLength);
+          final isViolatedAtOneMoreThanMinLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneMoreThenMinLength);
 
           // assert
           expect(
@@ -51,17 +58,20 @@ void testMinLengthRequiredConstraint() {
           final doubleMinLength = minLength * 2;
           final oneMoreThanMinLength = minLength + 1;
 
-          final inputAtMinLength = 't' * MinimumLengthRequiredConstraint.defaultMinLength;
+          final inputAtMinLength =
+              't' * MinimumLengthRequiredConstraint.defaultMinLength;
           final inputAtDoubleMinLength = 't' * doubleMinLength;
           final inputAtOneMoreThenMinLength = 't' * oneMoreThanMinLength;
 
           final maxLengthLimitingConstraint = MaximumLengthLimitingConstraint();
 
           // act
-          final isViolatedAtMinLength = maxLengthLimitingConstraint.isViolatedOn(inputAtMinLength);
-          final isViolatedAtDoubleMinLength = maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleMinLength);
-          final isViolatedAtOneMoreThanMinLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneMoreThenMinLength);
+          final isViolatedAtMinLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtMinLength);
+          final isViolatedAtDoubleMinLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleMinLength);
+          final isViolatedAtOneMoreThanMinLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneMoreThenMinLength);
 
           // assert
           expect(
@@ -95,9 +105,10 @@ void testMinLengthRequiredConstraint() {
           final maxLengthLimitingConstraint = MaximumLengthLimitingConstraint();
 
           // act
-          final isViolatedAtHalfMinLength = maxLengthLimitingConstraint.isViolatedOn(inputAtHalfMinLength);
-          final isViolatedAtOneLessThanMinLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneLessThenMinLength);
+          final isViolatedAtHalfMinLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtHalfMinLength);
+          final isViolatedAtOneLessThanMinLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneLessThenMinLength);
 
           // assert
           expect(
@@ -126,9 +137,10 @@ void testMinLengthRequiredConstraint() {
           final maxLengthLimitingConstraint = MaximumLengthLimitingConstraint();
 
           // act
-          final isViolatedAtHalfMinLength = maxLengthLimitingConstraint.isViolatedOn(inputAtHalfMinLength);
-          final isViolatedAtOneLessThanMinLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneLessThenMinLength);
+          final isViolatedAtHalfMinLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtHalfMinLength);
+          final isViolatedAtOneLessThanMinLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneLessThenMinLength);
 
           // assert
           expect(

@@ -1,6 +1,10 @@
 import 'package:test/test.dart';
 import 'package:valify/src/constraints/primary_constraints/primary_constraints.dart';
 
+void main() {
+  testMaxLengthLimitingConstraint();
+}
+
 void testMaxLengthLimitingConstraint() {
   group(
     'tests for MaximumLengthLimitingConstraint',
@@ -9,20 +13,25 @@ void testMaxLengthLimitingConstraint() {
         'should NOT be violated when length <= ${MaximumLengthLimitingConstraint.defaultMaxLength}',
         () {
           // arrange
-          final halfMaxLength = MaximumLengthLimitingConstraint.defaultMaxLength ~/ 2;
-          final oneLessThanMaxLength = MaximumLengthLimitingConstraint.defaultMaxLength - 1;
+          final halfMaxLength =
+              MaximumLengthLimitingConstraint.defaultMaxLength ~/ 2;
+          final oneLessThanMaxLength =
+              MaximumLengthLimitingConstraint.defaultMaxLength - 1;
 
-          final inputAtMaxLength = 't' * MaximumLengthLimitingConstraint.defaultMaxLength;
+          final inputAtMaxLength =
+              't' * MaximumLengthLimitingConstraint.defaultMaxLength;
           final inputAtHalfMaxLength = 't' * halfMaxLength;
           final inputAtOneLessThenMaxLength = 't' * oneLessThanMaxLength;
 
           final maxLengthLimitingConstraint = MaximumLengthLimitingConstraint();
 
           // act
-          final isViolatedAtMaxLength = maxLengthLimitingConstraint.isViolatedOn(inputAtMaxLength);
-          final isViolatedAtHalfMaxLength = maxLengthLimitingConstraint.isViolatedOn(inputAtHalfMaxLength);
-          final isViolatedAtOneLessThanMaxLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneLessThenMaxLength);
+          final isViolatedAtMaxLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtMaxLength);
+          final isViolatedAtHalfMaxLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtHalfMaxLength);
+          final isViolatedAtOneLessThanMaxLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneLessThenMaxLength);
 
           // assert
           expect(
@@ -59,10 +68,12 @@ void testMaxLengthLimitingConstraint() {
           );
 
           // act
-          final isViolatedAtMaxLength = maxLengthLimitingConstraint.isViolatedOn(inputAtMaxLength);
-          final isViolatedAtHalfOfMaxLength = maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleOfMaxLength);
-          final isViolatedAtOneLessThanMaxLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneMoreThanMaxLength);
+          final isViolatedAtMaxLength =
+              maxLengthLimitingConstraint.isViolatedOn(inputAtMaxLength);
+          final isViolatedAtHalfOfMaxLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtDoubleOfMaxLength);
+          final isViolatedAtOneLessThanMaxLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneMoreThanMaxLength);
 
           // assert
           expect(
@@ -86,8 +97,10 @@ void testMaxLengthLimitingConstraint() {
         'should be violated when length > ${MaximumLengthLimitingConstraint.defaultMaxLength}',
         () {
           // arrange
-          final doubleOfMaxLength = MaximumLengthLimitingConstraint.defaultMaxLength * 2;
-          final oneMoreThanMaxLength = MaximumLengthLimitingConstraint.defaultMaxLength + 1;
+          final doubleOfMaxLength =
+              MaximumLengthLimitingConstraint.defaultMaxLength * 2;
+          final oneMoreThanMaxLength =
+              MaximumLengthLimitingConstraint.defaultMaxLength + 1;
 
           final inputAtDoubleOfMaxLength = 't' * doubleOfMaxLength;
           final inputAtOneMoreThanMaxLength = 't' * oneMoreThanMaxLength;
@@ -95,9 +108,10 @@ void testMaxLengthLimitingConstraint() {
           final maxLengthLimitingConstraint = MaximumLengthLimitingConstraint();
 
           // act
-          final isViolatedAtDoubleOfMaxLength = maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleOfMaxLength);
-          final isViolatedAtOneMoreThanHalfLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneMoreThanMaxLength);
+          final isViolatedAtDoubleOfMaxLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtDoubleOfMaxLength);
+          final isViolatedAtOneMoreThanHalfLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneMoreThanMaxLength);
 
           // assert
           expect(
@@ -128,9 +142,10 @@ void testMaxLengthLimitingConstraint() {
           );
 
           // act
-          final isViolatedAtDoubleOfMaxLength = maxLengthLimitingConstraint.isViolatedOn(inputAtDoubleOfMaxLength);
-          final isViolatedAtOneMoreThanMaxLength =
-              maxLengthLimitingConstraint.isViolatedOn(inputAtOneMoreThanMaxLength);
+          final isViolatedAtDoubleOfMaxLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtDoubleOfMaxLength);
+          final isViolatedAtOneMoreThanMaxLength = maxLengthLimitingConstraint
+              .isViolatedOn(inputAtOneMoreThanMaxLength);
 
           // assert
           expect(

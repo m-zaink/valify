@@ -1,6 +1,10 @@
 import 'package:test/test.dart';
 import 'package:valify/src/constraints/primary_constraints/primary_constraints.dart';
 
+void main() {
+  testUpperCaseCharactersRequiredConstraint();
+}
+
 void testUpperCaseCharactersRequiredConstraint() {
   group(
     'test for UpperCaseCharactersRequiredConstraint',
@@ -130,7 +134,8 @@ void testUpperCaseCharactersRequiredConstraint() {
           // arrange
           final numberLessThanMinNumberOfUpperCaseCharactersRequired =
               UpperCaseCharactersRequiredConstraint
-                  .defaultMinCharactersRequired;
+                      .defaultMinCharactersRequired -
+                  1;
           final inputWithLessThanMinNumberOfUpperCaseCharactersAtLeadingPositions =
               'A' * numberLessThanMinNumberOfUpperCaseCharactersRequired +
                   'blah';
@@ -143,10 +148,7 @@ void testUpperCaseCharactersRequiredConstraint() {
                   'blah';
 
           final upperCaseCharactersRequiredConstraint =
-              UpperCaseCharactersRequiredConstraint(
-            minCharactersRequired:
-                numberLessThanMinNumberOfUpperCaseCharactersRequired,
-          );
+              UpperCaseCharactersRequiredConstraint();
 
           // act
           final isViolatedAtMinNumberOfCharactersRequiredAtLeadingPositions =
