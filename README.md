@@ -1,6 +1,6 @@
 # valify
 ---
-![Valify](https://gitlab.com/uploads/-/system/personal_snippet/2037052/ff80ba4c494c8887c0f4d18fc60b4c6d/Valify-Logo.png)
+![Valify](https://gitlab.com/uploads/-/system/personal_snippet/2037052/d2a5e9ca3df2f5cfb65afcffd7f936d4/Valify__Smaller_Icon_-removebg-preview.png)
 
 🔥 Validate your user inputs like never before with highly intuitive constraints pipeline.
 
@@ -87,7 +87,7 @@ if (violatedConstraints.isEmpty) {
 > ___ NOTE ___
 >
 > You can optionally pass-in a `violationMessage` parameter to any of your constraints. 
-> This `violationMessage` can be useful later on as shown above [`print(violatedConstraint.violationMessage)`]
+> This `violationMessage` can be useful later on as shown above [`print(violatedConstraint.violationMessage)`].
 
 > For more details, you may look at [example](https://pub.dev/packages/valify/example) file of this package.
 ----
