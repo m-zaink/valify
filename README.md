@@ -1,10 +1,6 @@
 # valify
 ---
-<div>
-<center>
-<img src="https://gitlab.com/uploads/-/system/personal_snippet/2037052/ff80ba4c494c8887c0f4d18fc60b4c6d/Valify-Logo.png" width="250" height="250"/>
-</center>
-</div>
+![Valify](https://gitlab.com/uploads/-/system/personal_snippet/2037052/ff80ba4c494c8887c0f4d18fc60b4c6d/Valify-Logo.png)
 
 🔥 Validate your user inputs like never before with highly intuitive constraints pipeline.
 
@@ -21,11 +17,7 @@
 #### Overview
 `valify` works in an extremely simple manner.
 
-<div>
-<center>
-<img src="https://gitlab.com/uploads/-/system/personal_snippet/2037052/e78c3239fa4438a9915b70d8713416bd/Validy_Pipeline__1_.png" width=1000/>
-</center>
-</div>
+![Valify Pipeline](https://gitlab.com/uploads/-/system/personal_snippet/2037052/e78c3239fa4438a9915b70d8713416bd/Validy_Pipeline__1_.png)
 
 
 * You have a list of constraints as part of your validation/constraints pipeline.
@@ -61,6 +53,7 @@ final valifier = Valifier(
         UpperCaseCharactersRequiredConstraint(),
         LowerCaseCharactersRequiredConstraint(),
         DigitsRequiredConstraint(),
+        AvoidEmojiesConstraint(),
         SpecialCharactersRequiredConstraint(
             specialCharacters: ['@', '$', '-', '%'],
         ),
