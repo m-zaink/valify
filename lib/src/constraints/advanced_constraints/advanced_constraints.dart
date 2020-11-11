@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import 'package:valify/src/constraints/input_constraint.dart';
 import 'package:valify/src/utilities/string_utilities.dart';
 
