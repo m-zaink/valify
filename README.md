@@ -2,7 +2,7 @@
 ---
 ![Valify](https://gitlab.com/uploads/-/system/personal_snippet/2037052/d2a5e9ca3df2f5cfb65afcffd7f936d4/Valify__Smaller_Icon_-removebg-preview.png)
 
-🐑 Completely platform agnostic. Run on iOS, Android, Web, Watch, whatever suits you.
+🐑 Completely platform agnostic. Run on iOS, Android, Web, Desktop, whatever suits you.
 
 🔥 Validate your user inputs like never before with highly intuitive constraints pipeline.
 
